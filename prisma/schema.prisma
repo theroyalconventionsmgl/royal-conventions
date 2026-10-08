@@ -1,0 +1,122 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Shift {
+  MORNING_SHIFT
+  EVENING_SHIFT
+  FULL_DAY
+}
+
+enum BookingStatus {
+  NEW_ENQUIRY
+  PROVISIONAL_HOLD
+  CONFIRMED
+  REJECTED
+  CANCELLED
+  MAINTENANCE_BLOCK
+}
+
+enum UserRole {
+  OWNER
+  MANAGER
+  STAFF
+}
+
+model Venue {
+  id               String       @id @default(cuid())
+  name             String       @unique
+  slug             String       @unique
+  description      String
+  shortDescription String?
+  tagline          String?
+  seatingCapacity  Int
+  floatingCapacity Int
+  areaSqFt         Int?
+  diningCapacity   Int?
+  greenRooms       Int?         @default(2)
+  lodgingAttached  Boolean      @default(false)
+  features         String[]
+  heroImage        String?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  bookings         Booking[]
+  rooms            Room[]
+  mediaAssets      MediaAsset[]
+
+  @@map("venues")
+}
+
+model Booking {
+  id                  String        @id @default(cuid())
+  venueId             String
+  venue               Venue         @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  date                String        // Stored as ISO YYYY-MM-DD for deterministic calendar querying
+  shift               Shift
+  status              BookingStatus @default(NEW_ENQUIRY)
+  customerName        String
+  customerPhone       String
+  customerEmail       String?
+  guestCount          Int?
+  eventType           String?
+  notes               String?
+  internalQuoteAmount Float?        // Private internal quotation, never displayed publicly
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  @@index([venueId, date])
+  @@index([status])
+  @@map("bookings")
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  roomNumber  String
+  venueId     String
+  venue       Venue    @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  type        String   @default("Deluxe AC Room")
+  capacity    Int      @default(3)
+  description String?
+  amenities   String[]
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([venueId, roomNumber])
+  @@map("rooms")
+}
+
+model MediaAsset {
+  id         String   @id @default(cuid())
+  url        String
+  category   String   // "Stage Decor", "Interiors", "Exterior", "Dining", "Deluxe Rooms"
+  venueId    String?
+  venue      Venue?   @relation(fields: [venueId], references: [id], onDelete: SetNull)
+  caption    String?
+  altText    String?
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([category])
+  @@index([venueId])
+  @@map("media_assets")
+}
+
+model AdminProfile {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      UserRole @default(MANAGER)
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admin_profiles")
+}

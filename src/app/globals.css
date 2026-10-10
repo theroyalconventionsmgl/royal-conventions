@@ -12,20 +12,20 @@
 
 @layer base {
   :root {
-    --background: #FFFFFF;
-    --background-alt: #FAFAFA;
-    --foreground: #09090B;
-    --card-surface: #FFFFFF;
-    --card-surface-pearl: #F4F4F5;
-    --card-border: #E4E4E7;
-    --gold-primary: #D4AF37;
-    --gold-deep: #C5A059;
-    --gold-light: #FBF7EE;
-    --gold-border: rgba(212, 175, 55, 0.35);
-    --gold-glow: rgba(212, 175, 55, 0.2);
+    --background: #09090B;
+    --background-alt: #18181B;
+    --foreground: #F4F4F5;
+    --card-surface: #18181B;
+    --card-surface-pearl: #27272A;
+    --card-border: rgba(245, 158, 11, 0.2);
+    --gold-primary: #F59E0B;
+    --gold-deep: #D97706;
+    --gold-light: #FEF3C7;
+    --gold-border: rgba(245, 158, 11, 0.25);
+    --gold-glow: rgba(245, 158, 11, 0.15);
     --obsidian: #09090B;
-    --charcoal: #27272A;
-    --muted-slate: #71717A;
+    --charcoal: #18181B;
+    --muted-slate: #A1A1AA;
   }
 
   body {
@@ -54,60 +54,45 @@
   }
 }
 
-/* Ambient Radial Backgrounds for Light Luxury */
-.bg-marble-radial {
-  background: radial-gradient(ellipse at top, #FFFFFF 0%, #FAFAFA 50%, #F4F4F5 100%);
+/* Ambient Radial Backgrounds for Obsidian & Gold Luxury */
+.bg-obsidian-radial {
+  background: radial-gradient(ellipse at top, #18181B 0%, #09090B 70%, #000000 100%);
 }
 
 .bg-gold-subtle-radial {
-  background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, rgba(9, 9, 11, 0) 70%);
 }
 
-/* Luxury Glassmorphism Cards (Light Mode) */
-.bg-glass-card-light {
-  background: rgba(255, 255, 255, 0.92);
+/* Luxury Glassmorphism Cards (Dark Mode) */
+.bg-glass-card-dark {
+  background: rgba(24, 24, 27, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(228, 228, 231, 0.9);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
 }
 
-.bg-glass-card-light:hover {
-  border-color: rgba(212, 175, 55, 0.5);
-  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.18);
-}
-
-.bg-glass-pearl {
-  background: #F4F4F5;
-  border: 1px solid #E4E4E7;
+.bg-glass-card-dark:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.12);
 }
 
 /* Refined Metallic Gold Text Gradients */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #C5A059 0%, #D4AF37 50%, #996515 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-obsidian-gradient {
-  background: linear-gradient(135deg, #09090B 0%, #27272A 70%, #52525B 100%);
+  background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #B45309 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Glowing Border Utilities */
 .border-glow-gold {
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  box-shadow: 0 0 20px -3px rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.2);
 }
 
 .border-glow-subtle {
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-}
-
-/* Active Gradient Border Container for Modals */
-.active-gold-gradient-border {
-  background: linear-gradient(135deg, #F59E0B 0%, #D4AF37 50%, #B45309 100%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
 }
 
 /* Hide scrollbar for touch carousels while preserving scroll functionality */
@@ -119,10 +104,10 @@
   scrollbar-width: none;
 }
 
-/* Smooth Scrolling & Light Luxury Scrollbar */
+/* Smooth Scrolling & Obsidian Luxury Scrollbar */
 html {
   scroll-behavior: smooth;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 ::-webkit-scrollbar {
@@ -130,12 +115,13 @@ html {
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAFAFA;
+  background: #09090B;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D4D4D8;
+  background: #27272A;
   border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  background: #F59E0B;
 }

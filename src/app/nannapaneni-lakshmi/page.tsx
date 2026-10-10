@@ -3,7 +3,6 @@ import Link from "next/link";
 import { 
   Users, 
   Maximize, 
-  Sparkles, 
   Utensils, 
   CheckCircle2, 
   Calendar,
@@ -13,6 +12,7 @@ import {
 import { siteConfig } from "@/config/site";
 import InteractiveAvailabilityChecker from "@/components/ui/InteractiveAvailabilityChecker";
 import LuxuryImage from "@/components/ui/LuxuryImage";
+import LegacyTribute from "@/components/ui/LegacyTribute";
 
 const venue = siteConfig.venues.find((v) => v.id === "nannapaneni-lakshmi")!;
 
@@ -22,27 +22,27 @@ export const metadata: Metadata = {
     `Explore ${venue.name} at The Royal Conventions Mangalagiri: spacious traditional Non-AC hall for large gatherings and classic rituals.`,
 };
 
-export default function RoyalConventionHallPage() {
+export default function NannapaneniLakshmiHallPage() {
   return (
-    <div className="bg-[#FAF8F5]">
+    <div className="bg-zinc-950 text-zinc-100">
       {/* 1. Dedicated Venue Hero */}
-      <section className="relative py-20 lg:py-28 bg-[#121212] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-[#1A1A1A]/70 to-[#121212] z-10" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#C5A059]/15 rounded-full blur-[140px] pointer-events-none" />
+      <section className="relative py-20 lg:py-28 bg-zinc-950 text-white overflow-hidden pt-28">
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-950/80 to-zinc-950 z-10" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C5A059]/40 text-[#DFCA95] text-xs font-semibold uppercase tracking-wider">
-                <Crown className="w-3.5 h-3.5 text-[#C5A059]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold uppercase tracking-wider font-mono">
+                <Crown className="w-3.5 h-3.5 text-amber-400" />
                 <span>Spacious Traditional Non-AC</span>
               </div>
 
-              <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white leading-tight">
+              <h1 className="font-serif text-4xl sm:text-6xl font-bold text-zinc-100 leading-tight">
                 {venue.name}
               </h1>
 
-              <p className="text-sm sm:text-lg text-[#DFCA95] font-serif italic">
+              <p className="text-sm sm:text-lg text-amber-300 font-serif italic">
                 &ldquo;{venue.tagline}&rdquo;
               </p>
 
@@ -53,17 +53,17 @@ export default function RoyalConventionHallPage() {
               <div className="flex flex-wrap gap-4 pt-2">
                 <a
                   href="#check-dates"
-                  className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#DFCA95] via-[#C5A059] to-[#8C6D31] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                  className="px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.25)] hover:from-amber-400 hover:to-amber-300 transition-all flex items-center gap-2"
                 >
-                  <Calendar className="w-4 h-4 text-[#1A1A1A]" />
+                  <Calendar className="w-4 h-4 text-zinc-950" />
                   <span>Check Availability</span>
                 </a>
 
                 <a
                   href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
-                  className="px-6 py-3.5 rounded-xl border border-[#C5A059]/40 text-[#DFCA95] font-semibold text-xs uppercase tracking-wider hover:bg-[#C5A059]/10 transition-colors flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-full border border-amber-500/30 text-amber-200 font-semibold text-xs uppercase tracking-wider hover:bg-zinc-900 transition-colors flex items-center gap-2 font-mono"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-4 h-4 text-amber-400" />
                   <span>Call Venue Manager</span>
                 </a>
               </div>
@@ -71,35 +71,35 @@ export default function RoyalConventionHallPage() {
 
             {/* Metric Card */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                <div className="flex items-center gap-2 text-[#DFCA95] text-xs font-semibold">
-                  <Users className="w-4 h-4" /> Seating Capacity
+              <div className="p-5 rounded-2xl bg-zinc-900 border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+                <div className="flex items-center gap-2 text-amber-300 text-xs font-semibold font-mono">
+                  <Users className="w-4 h-4 text-amber-400" /> Seating Capacity
                 </div>
-                <div className="font-serif text-3xl font-bold text-white mt-1">150</div>
+                <div className="font-serif text-3xl font-bold text-zinc-100 mt-1">150</div>
                 <p className="text-[11px] text-zinc-400 mt-1">Seated guests</p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                <div className="flex items-center gap-2 text-[#DFCA95] text-xs font-semibold">
-                  <Users className="w-4 h-4" /> Floating Capacity
+              <div className="p-5 rounded-2xl bg-zinc-900 border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+                <div className="flex items-center gap-2 text-amber-300 text-xs font-semibold font-mono">
+                  <Users className="w-4 h-4 text-amber-400" /> Floating Capacity
                 </div>
-                <div className="font-serif text-3xl font-bold text-white mt-1">150</div>
-                <p className="text-[11px] text-zinc-400 mt-1">Ceremonies & Receptions</p>
+                <div className="font-serif text-3xl font-bold text-zinc-100 mt-1">150</div>
+                <p className="text-[11px] text-zinc-400 mt-1">Ceremonies &amp; Receptions</p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                <div className="flex items-center gap-2 text-[#DFCA95] text-xs font-semibold">
-                  <Maximize className="w-4 h-4" /> Hall Type
+              <div className="p-5 rounded-2xl bg-zinc-900 border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+                <div className="flex items-center gap-2 text-amber-300 text-xs font-semibold font-mono">
+                  <Maximize className="w-4 h-4 text-amber-400" /> Hall Type
                 </div>
-                <div className="font-serif text-3xl font-bold text-white mt-1">Large Non-AC</div>
+                <div className="font-serif text-3xl font-bold text-zinc-100 mt-1">Large Non-AC</div>
                 <p className="text-[11px] text-zinc-400 mt-1">Non-AC Architecture</p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                <div className="flex items-center gap-2 text-[#DFCA95] text-xs font-semibold">
-                  <Utensils className="w-4 h-4" /> Dining Seats
+              <div className="p-5 rounded-2xl bg-zinc-900 border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+                <div className="flex items-center gap-2 text-amber-300 text-xs font-semibold font-mono">
+                  <Utensils className="w-4 h-4 text-amber-400" /> Dining Seats
                 </div>
-                <div className="font-serif text-3xl font-bold text-white mt-1">150</div>
+                <div className="font-serif text-3xl font-bold text-zinc-100 mt-1">150</div>
                 <p className="text-[11px] text-zinc-400 mt-1">Dedicated dining hall</p>
               </div>
             </div>
@@ -108,24 +108,24 @@ export default function RoyalConventionHallPage() {
       </section>
 
       {/* 2. Ideal Celebrations & Features */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-amber-500/20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-6">
-            <div className="text-xs font-bold uppercase tracking-[0.25em] text-[#8C6D31]">
-              Versatility & Warmth
+            <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-400 font-mono">
+              Versatility &amp; Warmth
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-zinc-100">
               Personalized Touch for Life&apos;s Cherished Occasions
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-              Designed for close-knit ceremonies where warmth, closeness, and acoustic intimacy are paramount. Perfect for traditional Nischithartham rituals, cradle ceremonies, and executive corporate symposiums.
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              Designed for close-knit ceremonies where warmth, closeness, and acoustic intimacy are paramount. Perfect for traditional Nischithartham rituals, cradle ceremonies, and traditional community gatherings.
             </p>
 
             <div className="space-y-3 pt-2">
               {venue.features.map((feat, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-white border border-[#C5A059]/15 shadow-sm">
-                  <CheckCircle2 className="w-5 h-5 text-[#8C6D31] shrink-0 mt-0.5" />
-                  <span className="text-xs text-zinc-800 font-medium">{feat}</span>
+                <div key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-zinc-900 border border-amber-500/15 shadow-sm">
+                  <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                  <span className="text-xs text-zinc-200 font-medium">{feat}</span>
                 </div>
               ))}
             </div>
@@ -133,18 +133,18 @@ export default function RoyalConventionHallPage() {
 
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {venue.galleryImages.map((img, idx) => (
-              <div key={idx} className="rounded-2xl overflow-hidden border border-[#C5A059]/30 shadow-md">
+              <div key={idx} className="rounded-2xl overflow-hidden border border-amber-500/20 shadow-md">
                 <LuxuryImage
                   src={img.url}
                   alt={img.caption}
                   aspectRatio="aspect-[16/9]"
                   category={img.category}
                 />
-                <div className="p-3 bg-white">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#8C6D31]">
+                <div className="p-3 bg-zinc-900">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">
                     {img.category}
                   </span>
-                  <p className="text-xs text-zinc-700 font-medium mt-0.5 line-clamp-1">
+                  <p className="text-xs text-zinc-300 font-medium mt-0.5 line-clamp-1">
                     {img.caption}
                   </p>
                 </div>
@@ -154,14 +154,17 @@ export default function RoyalConventionHallPage() {
         </div>
       </section>
 
-      {/* 3. Availability Check Drawer Anchor */}
-      <section id="check-dates" className="py-20 bg-white border-t border-[#C5A059]/20">
+      {/* 3. Founder Tribute Component */}
+      <LegacyTribute />
+
+      {/* 4. Availability Check Section */}
+      <section id="check-dates" className="py-20 bg-zinc-950 border-t border-amber-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="font-serif text-3xl font-bold text-[#1A1A1A]">
+            <h2 className="font-serif text-3xl font-bold text-zinc-100">
               Check Dates for Nannapaneni Lakshmi Function Hall
             </h2>
-            <p className="text-xs text-zinc-500 mt-2">
+            <p className="text-xs text-zinc-400 mt-2 font-mono">
               Inspect current calendar holds across Morning, Evening, and Full Day shifts.
             </p>
           </div>

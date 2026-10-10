@@ -25,7 +25,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "#09090b",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -171,7 +171,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-white text-neutral-900 antialiased selection:bg-amber-100 selection:text-amber-950">
+      <body className="min-h-screen flex flex-col bg-zinc-950 text-zinc-100 antialiased selection:bg-amber-500/20 selection:text-amber-300">
         <Header />
         <main className="flex-1 pb-20 md:pb-0">{children}</main>
         <Footer />

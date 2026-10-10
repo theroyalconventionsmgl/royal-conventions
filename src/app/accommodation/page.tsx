@@ -25,164 +25,171 @@ export const metadata: Metadata = {
 
 export default function AccommodationPage() {
   return (
-    <div className="bg-white text-slate-900">
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen">
       {/* 1. Hero Section */}
-      <section className="relative py-20 lg:py-28 bg-[#F8F9FA] text-slate-900 overflow-hidden border-b border-slate-200">
+      <section className="relative py-20 lg:py-28 bg-zinc-950 text-zinc-100 overflow-hidden border-b border-amber-500/20">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-500/20 text-amber-700 text-xs font-semibold uppercase tracking-wider mb-6">
-            <Hotel className="w-3.5 h-3.5 text-amber-700" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-6 font-mono">
+            <Hotel className="w-3.5 h-3.5 text-amber-400" />
             <span>On-Campus Guest Hospitality</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-slate-900 max-w-4xl mx-auto leading-tight">
+          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-zinc-100 max-w-4xl mx-auto leading-tight">
             Attached Deluxe Guest Lodging
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mt-4 leading-relaxed font-light">
+          <p className="text-sm sm:text-base text-zinc-300 max-w-2xl mx-auto mt-4 leading-relaxed font-light">
             Exclusively located at the <strong>Royal Banquet</strong> complex. 8 impeccably appointed, air-conditioned deluxe rooms designed to provide your family and special guests with serene comfort right where the celebrations happen.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
             <Link
               href="/check-availability?venue=royal-banquets"
-              className="px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-slate-200 transition-all flex items-center gap-2"
+              className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all flex items-center gap-2 font-mono"
             >
-              <Calendar className="w-4 h-4 text-slate-900" />
+              <Calendar className="w-4 h-4 text-zinc-950" />
               <span>Inquire for Lodging Dates</span>
             </Link>
 
             <a
               href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
-              className="px-6 py-3.5 rounded-xl border border-slate-300 bg-slate-100 text-slate-700 hover:text-slate-900 font-semibold text-xs uppercase tracking-wider hover:bg-slate-200 transition-colors flex items-center gap-2"
+              className="px-6 py-3.5 rounded-xl border border-amber-500/30 bg-zinc-900 text-amber-300 hover:text-amber-200 font-semibold text-xs uppercase tracking-wider hover:bg-zinc-800 transition-colors flex items-center gap-2 font-mono"
             >
-              <Phone className="w-4 h-4 text-amber-700" />
-              <span>Call Manager: {siteConfig.contact.primaryPhone}</span>
+              <Phone className="w-4 h-4 text-amber-400" />
+              <span>Call Management</span>
             </a>
           </div>
         </div>
       </section>
 
-      {/* 2. Room Suites Detailed Grid */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="text-xs font-bold uppercase tracking-[0.25em] text-amber-700 mb-2">
-            Curated Room Categories
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900">
-            Designed for Serene Rest & Preparation
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-500 mt-2 font-light">
-            Each room is furnished with high-thread-count linens, Daikin whisper-quiet climate control, and modern ensuite bathrooms.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {siteConfig.accommodation.roomTypes.map((room) => (
+      {/* 2. Key Lodging Highlights */}
+      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+          {[
+            { title: "8 Deluxe Suites", subtitle: "Attached to Royal Banquet", icon: Hotel },
+            { title: "Split Air Conditioning", subtitle: "Individual Daikin Climate Controls", icon: Wind },
+            { title: "High-Speed WiFi", subtitle: "Campus-Wide Connectivity", icon: Wifi },
+            { title: "24/7 Power Backup", subtitle: "Twin Caterpillar DG Generator Sets", icon: ShieldCheck },
+          ].map((item, idx) => (
             <div
-              key={room.name}
-              className="bg-[#F8F9FA] rounded-3xl border border-slate-200 shadow-xl overflow-hidden flex flex-col group hover:border-amber-500/30 transition-all"
+              key={idx}
+              className="p-6 rounded-2xl bg-zinc-900 border border-amber-500/20 shadow-sm flex items-start gap-4"
             >
-              <LuxuryImage
-                src={room.image}
-                alt={room.name}
-                aspectRatio="aspect-[16/10]"
-                category="Deluxe Accommodation"
-              />
-              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-serif text-2xl font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
-                      {room.name}
-                    </h3>
-                    <span className="text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-500/20 px-3 py-1 rounded-full">
-                      {room.count} Rooms Available
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-amber-700 font-medium mt-1">
-                    {room.bed} • Recommended for {room.occupancy}
-                  </p>
-
-                  <ul className="space-y-2.5 mt-6 text-xs text-slate-600">
-                    <li className="flex items-center gap-2">
-                      <Wind className="w-4 h-4 text-amber-700" />
-                      <span>Dedicated Daikin split air conditioning</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-amber-700" />
-                      <span>Modern ensuite bathroom with 24/7 hot water</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Tv className="w-4 h-4 text-amber-700" />
-                      <span>Smart LED TV with digital satellite channels</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Wifi className="w-4 h-4 text-amber-700" />
-                      <span>Complimentary high-speed campus Wi-Fi</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Coffee className="w-4 h-4 text-amber-700" />
-                      <span>Wardrobe, vanity mirror & electronic safe</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-slate-200 flex items-center justify-between">
-                  <span className="text-xs text-slate-500 italic">
-                    Attached to Royal Banquet Corridor
-                  </span>
-                  <Link
-                    href={`/check-availability?venue=royal-banquets`}
-                    className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors"
-                  >
-                    Reserve Room →
-                  </Link>
-                </div>
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <item.icon className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-serif font-bold text-zinc-100 text-base">{item.title}</h4>
+                <p className="text-xs text-zinc-400 mt-1 font-light">{item.subtitle}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Why On-Site Stay Matters */}
-        <div className="rounded-3xl bg-[#F8F9FA] p-8 sm:p-12 border border-slate-200 shadow-2xl">
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-700">
-              The Royal Advantage
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
-              Zero Travel Stress for Auspicious Muhurthams
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-light">
-              Early morning wedding muhurthams often require the bridal party and immediate family to wake up at 3:00 AM for make-up and traditional blessings. By staying right on campus, your loved ones wake up refreshed, dress comfortably, and step directly into the ceremonial mandapam via private corridors without facing dawn highway delays.
+        {/* 3. Visual Gallery Showcase of Rooms */}
+        <div className="mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="font-serif text-3xl font-bold text-zinc-100">
+              Inside Our Deluxe Rooms
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-400 mt-2 font-light">
+              Elegantly appointed interiors ensuring restful stays for elders and outstation guests.
             </p>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-              <div className="p-4 rounded-2xl bg-white border border-slate-200">
-                <Clock className="w-5 h-5 text-amber-700 mb-2" />
-                <h4 className="font-bold text-xs text-slate-900">24-Hour Check-in Flexibility</h4>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  Synchronized with your event shift timings.
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="rounded-3xl overflow-hidden bg-zinc-900 border border-amber-500/20 shadow-md flex flex-col">
+              <LuxuryImage
+                src="/images/deluxe-room-floral.jpg"
+                alt="Deluxe Room with King Bedding"
+                aspectRatio="aspect-[16/10]"
+                category="Attached Lodging"
+              />
+              <div className="p-6">
+                <h3 className="font-serif text-xl font-bold text-zinc-100">
+                  Deluxe King Suite (Royal Banquet Attached)
+                </h3>
+                <p className="text-xs text-zinc-300 mt-2 leading-relaxed font-light">
+                  Spacious king bedroom with premium spring mattress, mood lighting, wardrobe, and attached western bathroom with hot water geyser.
                 </p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-white border border-slate-200">
-                <ShieldCheck className="w-5 h-5 text-amber-700 mb-2" />
-                <h4 className="font-bold text-xs text-slate-900">100% Power Backed</h4>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  AC and geysers never stop running during load interruptions.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-white border border-slate-200">
-                <Building2 className="w-5 h-5 text-amber-700 mb-2" />
-                <h4 className="font-bold text-xs text-slate-900">Direct Corridor Access</h4>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  Elderly relatives can move effortlessly between rooms and halls.
-                </p>
+                <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-amber-400">
+                  <span className="bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">King Bed</span>
+                  <span className="bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">Attached Bath</span>
+                  <span className="bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">Daikin AC</span>
+                </div>
               </div>
             </div>
+
+            <div className="rounded-3xl overflow-hidden bg-zinc-900 border border-amber-500/20 shadow-md flex flex-col">
+              <LuxuryImage
+                src="/images/deluxe-room-ac.jpg"
+                alt="Executive Twin Suite"
+                aspectRatio="aspect-[16/10]"
+                category="Attached Lodging"
+              />
+              <div className="p-6">
+                <h3 className="font-serif text-xl font-bold text-zinc-100">
+                  Executive Suite for Family Elders
+                </h3>
+                <p className="text-xs text-zinc-300 mt-2 leading-relaxed font-light">
+                  Designed for immediate accessibility to the stage and dining area, minimizing walking for family elders and toddlers.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-amber-400">
+                  <span className="bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">Zero-Step Access</span>
+                  <span className="bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">Geyser</span>
+                  <span className="bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">Room Service Intercom</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. Amenities Checklist */}
+        <div className="bg-zinc-900 rounded-3xl p-8 sm:p-12 border border-amber-500/20 mb-16">
+          <div className="max-w-3xl mx-auto">
+            <h3 className="font-serif text-2xl font-bold text-zinc-100 mb-6 text-center">
+              Lodging Amenities &amp; Specifications
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                "Attached western toilets with branded sanitaryware",
+                "Instant hot water geysers in all 8 bathrooms",
+                "Dedicated room cleaning & fresh linen service",
+                "Intercom connection to campus management desk",
+                "Electronic card key or physical secure lock",
+                "Power backup ensuring uninterrupted AC operation",
+                "Located directly adjoining the Royal Banquet dining corridor",
+                "Private dressing mirrors suitable for bridal touch-ups",
+              ].map((amenity, idx) => (
+                <div key={idx} className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span className="text-xs text-zinc-300 leading-relaxed font-light">{amenity}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 5. Policy & Reservation Note */}
+        <div className="max-w-2xl mx-auto p-6 rounded-2xl bg-zinc-900 border border-amber-500/20 text-center">
+          <Building2 className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+          <h4 className="font-serif font-bold text-zinc-100 text-sm">
+            Important Lodging Allocation Note
+          </h4>
+          <p className="text-xs text-zinc-400 mt-1 leading-relaxed font-light">
+            These 8 deluxe guest rooms are exclusively available for bookings associated with events at <strong>Royal Banquet</strong> and <strong>The Royal Conventions</strong> campus. Individual transient hotel bookings are not accepted.
+          </p>
+          <div className="mt-4">
+            <Link
+              href="/check-availability?venue=royal-banquets"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 font-mono uppercase tracking-wider"
+            >
+              <span>Inquire Along with Banquet Hall</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </section>

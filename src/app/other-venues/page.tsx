@@ -32,43 +32,43 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export default function OtherVenuesPage() {
   return (
-    <div className="bg-[#FAF8F5] min-h-screen">
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen">
       {/* Hero */}
-      <section className="relative py-20 lg:py-24 bg-[#121212] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-[#1A1A1A]/70 to-[#121212] z-10" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[#C5A059]/10 rounded-full blur-[120px] pointer-events-none" />
+      <section className="relative py-20 lg:py-24 bg-zinc-950 text-white overflow-hidden border-b border-amber-500/20">
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-900/60 to-zinc-950 z-10" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A1A1A] border border-[#C5A059]/40 text-[#DFCA95] text-xs font-semibold uppercase tracking-wider mb-6">
-            <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-6 font-mono">
+            <MapPin className="w-3.5 h-3.5 text-amber-400" />
             <span>Official Halls • Mangalagiri</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white leading-tight">
+          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-zinc-100 leading-tight">
             Sister Venues &amp;
             <br />
-            <span className="text-[#DFCA95]">Affiliated Halls</span>
+            <span className="text-amber-300">Affiliated Halls</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl mx-auto mt-6">
+          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-2xl mx-auto mt-6 font-light">
             All four official halls managed under The Royal Conventions umbrella — from the 900-guest flagship Royal Convention to the newest intimate Royal Banquets.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-8 font-mono">
             <a
               href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#DFCA95] via-[#C5A059] to-[#8C6D31] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.2)] hover:shadow-xl transition-all flex items-center gap-2"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-4 h-4 text-zinc-950" />
               <span>Call for Inquiries</span>
             </a>
             <a
               href={siteConfig.contact.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-xl border border-[#C5A059]/40 text-[#DFCA95] font-semibold text-xs uppercase tracking-wider hover:bg-[#C5A059]/10 transition-colors flex items-center gap-2"
+              className="px-6 py-3 rounded-xl border border-amber-500/30 text-green-400 font-semibold text-xs uppercase tracking-wider hover:bg-zinc-900 transition-colors flex items-center gap-2"
             >
-              <MessageSquare className="w-4 h-4" />
+              <MessageSquare className="w-4 h-4 text-green-400" />
               <span>WhatsApp Inquiry</span>
             </a>
           </div>
@@ -81,103 +81,103 @@ export default function OtherVenuesPage() {
           {siteConfig.venues.map((venue, idx) => (
             <div
               key={venue.id}
-              className="bg-white rounded-3xl border border-[#C5A059]/20 shadow-sm overflow-hidden"
+              className="bg-zinc-900 rounded-3xl border border-amber-500/20 shadow-sm overflow-hidden"
             >
               {/* Venue Header Banner */}
-              <div className="bg-gradient-to-r from-[#1A1A1A] to-[#2A2A2A] p-8 text-white">
+              <div className="bg-gradient-to-r from-zinc-950 to-zinc-900 p-8 text-white border-b border-amber-500/20">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
                   <div className="flex-1">
-                    <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#DFCA95] bg-[#C5A059]/20 border border-[#C5A059]/30 px-2.5 py-0.5 rounded-full mb-3">
-                      <MapPin className="w-3 h-3" />
+                    <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2.5 py-0.5 rounded-full mb-3 font-mono">
+                      <MapPin className="w-3 h-3 text-amber-400" />
                       Official Venue {idx + 1} — Mangalagiri
                     </div>
-                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-zinc-100 leading-snug">
                       {venue.name}
                     </h2>
-                    <p className="text-sm text-[#DFCA95] font-serif italic mt-1.5">
+                    <p className="text-sm text-amber-300 font-serif italic mt-1.5">
                       &ldquo;{venue.tagline}&rdquo;
                     </p>
-                    <p className="text-xs text-zinc-300 leading-relaxed mt-3 max-w-2xl">
+                    <p className="text-xs text-zinc-300 leading-relaxed mt-3 max-w-2xl font-light">
                       {venue.description}
                     </p>
                   </div>
 
                   {/* Key Capacity Badge */}
-                  <div className="shrink-0 p-5 rounded-2xl bg-[#C5A059]/15 border border-[#C5A059]/30 text-center min-w-[140px]">
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-[#DFCA95] mb-1">
+                  <div className="shrink-0 p-5 rounded-2xl bg-zinc-950 border border-amber-500/30 text-center min-w-[140px]">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1 font-mono">
                       Seating
                     </div>
-                    <div className="font-serif text-4xl font-bold text-white">
+                    <div className="font-serif text-4xl font-bold text-zinc-100">
                       {venue.seatingCapacityLabel ?? venue.seatingCapacity}
                     </div>
-                    <div className="text-[10px] text-zinc-400 mt-1">
-                      {venue.hasJumboCoolers ? "Non-AC + Jumbo Coolers" : "Non-AC Hall"}
+                    <div className="text-[10px] text-zinc-400 mt-1 font-mono">
+                      {venue.hasJumboCoolers ? "Non-AC + Jumbo Coolers" : venue.acType ?? "Air Conditioned"}
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Specs Grid */}
-              <div className="p-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 border-b border-zinc-100">
+              <div className="p-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 border-b border-zinc-800">
                 {/* Seating */}
-                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#C5A059]/15 space-y-1">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8C6D31]">
+                <div className="p-4 rounded-2xl bg-zinc-950 border border-amber-500/20 space-y-1">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">
                     <Users className="w-3.5 h-3.5" /> Main Hall
                   </div>
-                  <div className="font-serif text-2xl font-bold text-[#1A1A1A]">
+                  <div className="font-serif text-2xl font-bold text-zinc-100">
                     {venue.seatingCapacityLabel ?? venue.seatingCapacity}
                   </div>
-                  <p className="text-[10px] text-zinc-500">
-                    {venue.hasJumboCoolers ? "With Jumbo Air Coolers" : "Non-AC Seating"}
+                  <p className="text-[10px] text-zinc-400 font-light">
+                    {venue.hasJumboCoolers ? "With Jumbo Air Coolers" : "Seating Capacity"}
                   </p>
                 </div>
 
                 {/* Dining */}
-                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#C5A059]/15 space-y-1">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8C6D31]">
+                <div className="p-4 rounded-2xl bg-zinc-950 border border-amber-500/20 space-y-1">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">
                     <Utensils className="w-3.5 h-3.5" /> Dining Hall
                   </div>
-                  <div className="font-serif text-2xl font-bold text-[#1A1A1A]">
+                  <div className="font-serif text-2xl font-bold text-zinc-100">
                     {venue.diningCapacity}
                   </div>
-                  <p className="text-[10px] text-zinc-500">
-                    {venue.diningCapacityLabel?.match(/\(([^)]+)\)/)?.[1] ?? "Guests"}
+                  <p className="text-[10px] text-zinc-400 font-light">
+                    {venue.diningCapacityLabel?.match(/\(([^)]+)\)/)?.[1] ?? "Guests Simultaneous"}
                   </p>
                 </div>
 
                 {/* AC Rooms or Parking */}
                 {venue.acRooms ? (
-                  <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#C5A059]/15 space-y-1">
-                    <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8C6D31]">
+                  <div className="p-4 rounded-2xl bg-zinc-950 border border-amber-500/20 space-y-1">
+                    <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">
                       <Hotel className="w-3.5 h-3.5" /> AC Rooms
                     </div>
-                    <div className="font-serif text-2xl font-bold text-[#1A1A1A]">
+                    <div className="font-serif text-2xl font-bold text-zinc-100">
                       {venue.acRooms}
                     </div>
-                    <p className="text-[10px] text-zinc-500">Deluxe + 1 AC Dormitory</p>
+                    <p className="text-[10px] text-zinc-400 font-light">Deluxe + 1 AC Dormitory</p>
                   </div>
                 ) : (
-                  <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#C5A059]/15 space-y-1">
-                    <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8C6D31]">
+                  <div className="p-4 rounded-2xl bg-zinc-950 border border-amber-500/20 space-y-1">
+                    <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">
                       <Car className="w-3.5 h-3.5" /> Parking
                     </div>
-                    <div className="font-serif text-lg font-bold text-[#1A1A1A]">Dedicated</div>
-                    <p className="text-[10px] text-zinc-500">On-site parking space</p>
+                    <div className="font-serif text-lg font-bold text-zinc-100">Dedicated</div>
+                    <p className="text-[10px] text-zinc-400 font-light">On-site parking space</p>
                   </div>
                 )}
 
                 {/* Cooling */}
-                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#C5A059]/15 space-y-1">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8C6D31]">
+                <div className="p-4 rounded-2xl bg-zinc-950 border border-amber-500/20 space-y-1">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">
                     <Wind className="w-3.5 h-3.5" /> Cooling
                   </div>
-                  <div className="font-serif text-sm font-bold text-[#1A1A1A] mt-2">
-                    {venue.hasJumboCoolers ? "Jumbo Coolers" : "Standard"}
+                  <div className="font-serif text-sm font-bold text-zinc-100 mt-2">
+                    {venue.hasJumboCoolers ? "Jumbo Coolers" : venue.acType ?? "100% Central AC"}
                   </div>
-                  <p className="text-[10px] text-zinc-500">
+                  <p className="text-[10px] text-zinc-400 font-light">
                     {venue.hasJumboCoolers
                       ? "AC Stage, AC Dining & AC Rooms"
-                      : "Natural ventilation"}
+                      : "Engineered climate flow"}
                   </p>
                 </div>
               </div>
@@ -186,14 +186,14 @@ export default function OtherVenuesPage() {
               <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Key Features */}
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#8C6D31] mb-4">
-                    Key Highlights & Features
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-4 font-mono">
+                    Key Highlights &amp; Features
                   </h4>
                   <div className="space-y-3">
                     {venue.features.map((feat, i) => (
-                      <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-[#FAF8F5] border border-[#C5A059]/15">
-                        <Check className="w-4 h-4 text-[#8C6D31] shrink-0 mt-0.5" />
-                        <span className="text-xs text-zinc-700 font-medium">{feat}</span>
+                      <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-zinc-950 border border-amber-500/20">
+                        <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                        <span className="text-xs text-zinc-300 font-light">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -202,14 +202,14 @@ export default function OtherVenuesPage() {
                 {/* Suited For + Amenities */}
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#8C6D31] mb-4">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-4 font-mono">
                       Ideal For
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {venue.suitedFor.map((event, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 rounded-full text-[11px] font-semibold bg-[#C5A059]/10 text-[#8C6D31] border border-[#C5A059]/20"
+                          className="px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/20 font-mono"
                         >
                           {event}
                         </span>
@@ -218,18 +218,18 @@ export default function OtherVenuesPage() {
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#8C6D31] mb-4">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-4 font-mono">
                       Key Amenities
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {venue.amenities.map((am, i) => (
-                        <div key={i} className="flex items-center gap-2.5 text-xs text-zinc-700">
-                          <div className="w-7 h-7 rounded-lg bg-[#C5A059]/10 text-[#8C6D31] flex items-center justify-center shrink-0">
+                        <div key={i} className="flex items-center gap-2.5 text-xs text-zinc-300">
+                          <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0">
                             {iconMap[am.icon] ?? <Building2 className="w-4 h-4" />}
                           </div>
                           <div>
-                            <div className="font-bold text-[#1A1A1A]">{am.name}</div>
-                            <div className="text-[10px] text-zinc-500">{am.desc}</div>
+                            <div className="font-bold text-zinc-100">{am.name}</div>
+                            <div className="text-[10px] text-zinc-400 font-light">{am.desc}</div>
                           </div>
                         </div>
                       ))}
@@ -240,28 +240,28 @@ export default function OtherVenuesPage() {
 
               {/* Inquiry CTA */}
               <div className="px-8 pb-8">
-                <div className="p-5 rounded-2xl bg-[#1A1A1A] border border-[#C5A059]/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="p-5 rounded-2xl bg-zinc-950 border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-bold text-[#DFCA95]">Interested in this venue?</p>
-                    <p className="text-[11px] text-zinc-400 mt-0.5">
-                      Contact our team for custom tariff quotes, availability & site visit.
+                    <p className="text-xs font-bold text-amber-300 font-mono">Interested in this venue?</p>
+                    <p className="text-[11px] text-zinc-400 mt-0.5 font-light">
+                      Contact our team for custom tariff quotes, availability &amp; site visit.
                     </p>
                   </div>
-                  <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-3 shrink-0 font-mono">
                     <a
                       href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
-                      className="px-4 py-2.5 rounded-xl bg-[#C5A059] hover:bg-[#A58039] text-[#1A1A1A] text-xs font-bold flex items-center gap-1.5 transition-colors"
+                      className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 text-xs font-bold flex items-center gap-1.5 transition-colors"
                     >
-                      <Phone className="w-3.5 h-3.5" />
+                      <Phone className="w-3.5 h-3.5 text-zinc-950" />
                       <span>Call Now</span>
                     </a>
                     <a
                       href={siteConfig.contact.whatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2.5 rounded-xl border border-[#C5A059]/40 text-[#DFCA95] text-xs font-bold flex items-center gap-1.5 hover:bg-[#C5A059]/10 transition-colors"
+                      className="px-4 py-2.5 rounded-xl border border-amber-500/30 text-green-400 text-xs font-bold flex items-center gap-1.5 hover:bg-zinc-900 transition-colors"
                     >
-                      <MessageSquare className="w-3.5 h-3.5" />
+                      <MessageSquare className="w-3.5 h-3.5 text-green-400" />
                       <span>WhatsApp</span>
                     </a>
                   </div>
@@ -275,19 +275,19 @@ export default function OtherVenuesPage() {
       {/* Link back to all venues */}
       <section className="pb-20">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <div className="p-8 rounded-3xl bg-white border border-[#C5A059]/20 shadow-sm">
-            <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
+          <div className="p-8 rounded-3xl bg-zinc-900 border border-amber-500/20 shadow-sm">
+            <h3 className="font-serif text-xl font-bold text-zinc-100">
               Also Explore Our Main Campus Halls
             </h3>
-            <p className="text-xs text-zinc-500 mt-2">
-              The Royal Conventions campus features three premium primary halls for larger-scale events.
+            <p className="text-xs text-zinc-400 mt-2 font-light">
+              The Royal Conventions campus features premium primary halls for larger-scale events.
             </p>
             <Link
               href="/halls"
-              className="inline-flex items-center gap-2 mt-5 px-6 py-3 rounded-xl bg-[#1A1A1A] hover:bg-black text-[#DFCA95] font-bold text-xs uppercase tracking-wider transition-colors"
+              className="inline-flex items-center gap-2 mt-5 px-6 py-3 rounded-xl bg-zinc-950 border border-amber-500/30 hover:bg-zinc-800 text-amber-300 font-bold text-xs uppercase tracking-wider transition-colors font-mono"
             >
-              <Building2 className="w-4 h-4 text-[#C5A059]" />
-              <span>View All 5 Venues & Compare</span>
+              <Building2 className="w-4 h-4 text-amber-400" />
+              <span>View All Venues &amp; Compare</span>
             </Link>
           </div>
         </div>

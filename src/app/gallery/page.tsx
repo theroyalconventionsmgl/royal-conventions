@@ -5,13 +5,9 @@ import Link from "next/link";
 import { 
   Sparkles, 
   Crown, 
-  Filter, 
   Maximize2, 
   X, 
-  Calendar,
-  CheckCircle2
 } from "lucide-react";
-import { siteConfig } from "@/config/site";
 import LuxuryImage from "@/components/ui/LuxuryImage";
 
 // Curated campus gallery items mapped by category
@@ -121,18 +117,18 @@ export default function GalleryPage() {
       : galleryItems.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="py-12 md:py-20 bg-[#FAF8F5]">
+    <div className="py-12 md:py-20 bg-zinc-950 text-zinc-100 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-[#8C6D31] mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-amber-400 mb-2 font-mono">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             Visual Portfolio
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#1A1A1A]">
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-zinc-100">
             The Royal Visual Gallery
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-600 mt-4 leading-relaxed">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-4 leading-relaxed font-light">
             Immerse yourself in our world-class architecture, grand stages, attached deluxe lodging rooms, and exquisite dining settings.
           </p>
         </div>
@@ -146,10 +142,10 @@ export default function GalleryPage() {
                 key={category}
                 type="button"
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
+                className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all font-mono ${
                   isActive
-                    ? "bg-[#1A1A1A] text-[#DFCA95] shadow-md border border-[#C5A059]"
-                    : "bg-white text-zinc-600 border border-zinc-200 hover:border-[#C5A059]/40 hover:text-[#1A1A1A]"
+                    ? "bg-amber-500/20 text-amber-300 shadow-md border border-amber-500/40"
+                    : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-amber-500/40 hover:text-zinc-200"
                 }`}
               >
                 {category}
@@ -164,7 +160,7 @@ export default function GalleryPage() {
             <div
               key={item.id}
               onClick={() => setSelectedImage(item)}
-              className="group cursor-pointer rounded-2xl bg-white border border-[#C5A059]/20 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
+              className="group cursor-pointer rounded-2xl bg-zinc-900 border border-amber-500/20 overflow-hidden shadow-sm hover:shadow-[0_0_25px_rgba(245,158,11,0.1)] hover:border-amber-500/40 transition-all duration-300 flex flex-col"
             >
               <div className="relative overflow-hidden">
                 <LuxuryImage
@@ -173,14 +169,14 @@ export default function GalleryPage() {
                   aspectRatio="aspect-[16/9]"
                   category={item.category}
                 />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                  <div className="p-3 rounded-full bg-white/20 backdrop-blur-md text-white">
+                <div className="absolute inset-0 bg-zinc-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                  <div className="p-3 rounded-full bg-zinc-900/80 backdrop-blur-md text-amber-400 border border-amber-500/30">
                     <Maximize2 className="w-5 h-5" />
                   </div>
                 </div>
 
                 <div className="absolute top-3 left-3">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#1A1A1A]/85 backdrop-blur-md text-[#DFCA95] border border-[#C5A059]/30">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-zinc-950/85 backdrop-blur-md text-amber-300 border border-amber-500/30 font-mono">
                     {item.category}
                   </span>
                 </div>
@@ -188,10 +184,10 @@ export default function GalleryPage() {
 
               <div className="p-4 flex-1 flex flex-col justify-between">
                 <div>
-                  <span className="text-[10px] font-bold text-[#8C6D31] uppercase tracking-wider block">
+                  <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block font-mono">
                     {item.venue}
                   </span>
-                  <p className="text-xs text-[#1A1A1A] font-medium mt-1 line-clamp-2">
+                  <p className="text-xs text-zinc-200 font-medium mt-1 line-clamp-2">
                     {item.caption}
                   </p>
                 </div>
@@ -203,17 +199,17 @@ export default function GalleryPage() {
         {/* Lightbox Modal */}
         {selectedImage && (
           <div
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-zinc-950/90 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setSelectedImage(null)}
           >
             <div
-              className="relative max-w-4xl w-full bg-[#1A1A1A] rounded-2xl overflow-hidden border border-[#C5A059]/30 shadow-2xl"
+              className="relative max-w-4xl w-full bg-zinc-900 rounded-2xl overflow-hidden border border-amber-500/30 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/70 text-white hover:bg-[#C5A059] hover:text-black transition-colors"
+                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-zinc-950/80 text-zinc-300 hover:text-amber-400 border border-amber-500/20 transition-colors"
                 aria-label="Close Preview"
               >
                 <X className="w-5 h-5" />
@@ -228,19 +224,19 @@ export default function GalleryPage() {
                 />
               </div>
 
-              <div className="p-6 bg-[#1A1A1A] border-t border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="p-6 bg-zinc-900 border-t border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#C5A059]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
                     {selectedImage.venue} • {selectedImage.category}
                   </span>
-                  <p className="text-sm font-serif font-bold text-white mt-1">
+                  <p className="text-sm font-serif font-bold text-zinc-100 mt-1">
                     {selectedImage.caption}
                   </p>
                 </div>
 
                 <Link
                   href="/check-availability"
-                  className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#DFCA95] via-[#C5A059] to-[#8C6D31] text-[#1A1A1A] text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg shrink-0"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg shrink-0 font-mono"
                 >
                   Inquire This Setup
                 </Link>
@@ -250,24 +246,24 @@ export default function GalleryPage() {
         )}
 
         {/* CTA Footer Banner */}
-        <div className="mt-16 p-8 rounded-3xl bg-white border border-[#C5A059]/30 shadow-md text-center max-w-2xl mx-auto">
-          <Crown className="w-8 h-8 text-[#C5A059] mx-auto mb-2" />
-          <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+        <div className="mt-16 p-8 rounded-3xl bg-zinc-900 border border-amber-500/30 shadow-[0_0_30px_rgba(245,158,11,0.05)] text-center max-w-2xl mx-auto">
+          <Crown className="w-8 h-8 text-amber-400 mx-auto mb-2" />
+          <h3 className="font-serif text-2xl font-bold text-zinc-100">
             Experience The Royal Campus in Person
           </h3>
-          <p className="text-xs text-zinc-600 mt-2">
+          <p className="text-xs text-zinc-400 mt-2 font-light">
             Schedule a guided campus tour with Sri Bhaskar Rao or Sri Srikanth to view stage heights, guest seating, and deluxe rooms firsthand.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="px-6 py-2.5 rounded-xl bg-[#1A1A1A] text-[#DFCA95] font-bold text-xs uppercase tracking-wider hover:bg-black"
+              className="px-6 py-2.5 rounded-xl bg-zinc-950 border border-amber-500/30 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-zinc-800 transition-colors font-mono"
             >
-              Get Directions & Map
+              Get Directions &amp; Map
             </Link>
             <Link
               href="/check-availability"
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#DFCA95] via-[#C5A059] to-[#8C6D31] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md transition-all font-mono"
             >
               Check Date Availability
             </Link>

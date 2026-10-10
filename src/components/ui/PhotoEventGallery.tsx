@@ -3,14 +3,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Maximize2, X, ChevronRight } from "lucide-react";
+import { Sparkles, Maximize2, X } from "lucide-react";
 
 interface GalleryItem {
   id: string;
   title: string;
   category: "Stages" | "Dining" | "Suites" | "Campus";
   image: string;
-  span: string; // Tailwind grid span
+  span: string;
   description: string;
 }
 
@@ -68,19 +68,19 @@ export default function PhotoEventGallery() {
     : galleryItems.filter((item) => item.category === activeCategory);
 
   return (
-    <section className="py-20 sm:py-28 bg-white text-neutral-900 relative overflow-hidden border-b border-neutral-200">
+    <section className="py-20 sm:py-28 bg-zinc-950 text-zinc-100 relative overflow-hidden border-b border-amber-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-amber-800 mb-3 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300/80 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-amber-400 mb-3 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 font-mono shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>Campus Visual Showcase</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-neutral-950 tracking-tight leading-tight">
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-zinc-100 tracking-tight leading-tight">
               A Glimpse into Splendor
             </h2>
-            <p className="text-xs sm:text-base text-neutral-600 mt-2.5 max-w-xl font-normal leading-relaxed">
+            <p className="text-xs sm:text-base text-zinc-400 mt-2.5 max-w-xl font-light leading-relaxed">
               Explore stage sets, banquet seating arrangements, and luxury attached guest lodging rooms across our Mangalagiri campus.
             </p>
           </div>
@@ -92,10 +92,10 @@ export default function PhotoEventGallery() {
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all font-mono uppercase tracking-wider ${
                   activeCategory === cat
-                    ? "bg-neutral-950 text-amber-300 border border-amber-500/40 shadow-sm"
-                    : "bg-[#F4F4F5] text-neutral-700 hover:bg-neutral-200/80 border border-neutral-200"
+                    ? "bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm"
+                    : "bg-zinc-900 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-zinc-800"
                 }`}
               >
                 {cat}
@@ -115,7 +115,7 @@ export default function PhotoEventGallery() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.015 }}
               onClick={() => setSelectedPhoto(item)}
-              className={`relative rounded-3xl overflow-hidden border border-neutral-200/90 shadow-xs group cursor-pointer ${item.span}`}
+              className={`relative rounded-3xl overflow-hidden border border-amber-500/20 shadow-xs group cursor-pointer ${item.span}`}
             >
               <Image
                 src={item.image}
@@ -125,29 +125,29 @@ export default function PhotoEventGallery() {
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
 
-              {/* Light-to-Dark Luxury Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent transition-opacity group-hover:opacity-90" />
+              {/* Obsidian-to-Gold Luxury Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent transition-opacity group-hover:opacity-90" />
 
               {/* Top Category Badge */}
               <div className="absolute top-4 left-4 z-10">
-                <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 text-neutral-950 backdrop-blur-md border border-neutral-200 shadow-xs">
+                <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-900/90 text-amber-300 backdrop-blur-md border border-amber-500/30 shadow-xs font-mono">
                   {item.category}
                 </span>
               </div>
 
               {/* Expand Icon Button */}
               <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-neutral-950 shadow-md">
-                  <Maximize2 className="w-4 h-4 text-amber-600" />
+                <div className="w-9 h-9 rounded-full bg-zinc-900/90 backdrop-blur-md flex items-center justify-center text-amber-400 border border-amber-500/30 shadow-md">
+                  <Maximize2 className="w-4 h-4 text-amber-400" />
                 </div>
               </div>
 
               {/* Bottom Caption & Description */}
               <div className="absolute bottom-5 inset-x-5 z-10">
-                <h3 className="font-serif text-lg sm:text-xl font-bold text-white leading-tight group-hover:text-amber-300 transition-colors">
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-zinc-100 leading-tight group-hover:text-amber-300 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
+                <p className="text-xs text-zinc-300 mt-1 line-clamp-1 font-light">
                   {item.description}
                 </p>
               </div>
@@ -163,7 +163,7 @@ export default function PhotoEventGallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/85 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/90 backdrop-blur-md"
             onClick={() => setSelectedPhoto(null)}
           >
             <motion.div
@@ -172,18 +172,18 @@ export default function PhotoEventGallery() {
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full bg-white border border-neutral-200 rounded-3xl overflow-hidden p-3 sm:p-4 shadow-2xl"
+              className="relative max-w-4xl w-full bg-zinc-900 border border-amber-500/30 rounded-3xl overflow-hidden p-3 sm:p-4 shadow-2xl"
             >
               <button
                 type="button"
                 onClick={() => setSelectedPhoto(null)}
-                className="absolute top-6 right-6 z-20 p-2.5 rounded-full bg-neutral-950/80 text-white hover:bg-neutral-900 transition-colors"
+                className="absolute top-6 right-6 z-20 p-2.5 rounded-full bg-zinc-950/80 text-zinc-200 hover:text-amber-400 hover:bg-zinc-950 transition-colors border border-amber-500/20"
                 aria-label="Close Lightbox"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-neutral-100">
+              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-zinc-950">
                 <Image
                   src={selectedPhoto.image}
                   alt={selectedPhoto.title}
@@ -194,13 +194,13 @@ export default function PhotoEventGallery() {
 
               <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30 font-mono">
                     {selectedPhoto.category}
                   </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-950 mt-1.5">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-zinc-100 mt-1.5">
                     {selectedPhoto.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-neutral-600 mt-1">
+                  <p className="text-xs sm:text-sm text-zinc-400 mt-1">
                     {selectedPhoto.description}
                   </p>
                 </div>
@@ -208,7 +208,7 @@ export default function PhotoEventGallery() {
                 <button
                   type="button"
                   onClick={() => setSelectedPhoto(null)}
-                  className="px-5 py-2.5 rounded-xl bg-neutral-950 text-amber-300 border border-amber-500/40 text-xs font-bold uppercase tracking-wider shrink-0 shadow-sm"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 border border-amber-500/40 text-xs font-bold uppercase tracking-wider shrink-0 shadow-sm font-mono"
                 >
                   Close Photo
                 </button>

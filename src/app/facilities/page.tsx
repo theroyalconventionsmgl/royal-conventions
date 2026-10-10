@@ -4,7 +4,13 @@ import {
   ShieldCheck,
   CheckCircle2,
   Calendar,
-  Phone
+  Phone,
+  Zap,
+  VolumeX,
+  ChefHat,
+  Car,
+  Home,
+  Droplet
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
@@ -16,18 +22,18 @@ export const metadata: Metadata = {
 
 export default function FacilitiesPage() {
   return (
-    <div className="py-12 md:py-20 bg-slate-50/50">
+    <div className="py-12 md:py-20 bg-zinc-950 text-zinc-100 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-[#8C6D31] mb-2">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-amber-400 mb-2 font-mono">
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
             Verified Infrastructure
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#1A1A1A]">
-            Campus Amenities & Engineering
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-zinc-100">
+            Campus Amenities &amp; Engineering
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-600 mt-4 leading-relaxed">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-4 leading-relaxed font-light">
             We understand that a grand wedding or high-stakes corporate assembly depends on flawless behind-the-scenes infrastructure. Here is how The Royal Conventions guarantees seamless operations.
           </p>
         </div>
@@ -35,113 +41,143 @@ export default function FacilitiesPage() {
         {/* Bento Feature Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           {/* Dark Hero Card: Power & Acoustics */}
-          <div className="lg:col-span-2 bg-slate-950 text-white rounded-3xl p-8 sm:p-10 border border-amber-500/30 flex flex-col justify-between relative overflow-hidden group">
+          <div className="lg:col-span-2 bg-zinc-900 rounded-3xl p-8 sm:p-10 border border-amber-500/30 flex flex-col justify-between relative overflow-hidden group shadow-[0_0_30px_rgba(245,158,11,0.05)]">
             <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
             <div>
               <div className="text-amber-400 text-5xl font-serif font-bold mb-2">100%</div>
-              <h2 className="text-2xl font-serif font-semibold text-white mb-3">
-                Zero-Break Power & Acoustic Insulation
+              <h2 className="text-2xl font-serif font-semibold text-zinc-100 mb-3">
+                Zero-Break Power &amp; Acoustic Insulation
               </h2>
-              <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl">
+              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-xl font-light">
                 Twin industrial Caterpillar / Cummins DG gensets guarantee zero power disruption during sacred muhurtham rituals, paired with acoustically engineered soundproofing in Royal Banquet.
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap gap-3 text-xs font-medium uppercase tracking-wider text-amber-300">
+            <div className="mt-8 flex flex-wrap gap-3 text-xs font-medium uppercase tracking-wider text-amber-300 font-mono">
               <span className="bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30">Automatic Transfer</span>
               <span className="bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30">Soundproof Hall</span>
             </div>
           </div>
 
           {/* Stat Card: Kitchen */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200/80 hover:border-amber-500/40 transition-all flex flex-col justify-between shadow-sm">
+          <div className="bg-zinc-900 rounded-3xl p-8 border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between shadow-sm">
             <div>
-              <div className="text-amber-600 text-4xl font-serif font-bold mb-1">150ft × 18ft</div>
-              <h3 className="text-xl font-serif font-semibold text-slate-900 mb-2">
-                Heavy-Duty Kitchen & Outdoor Buffet
+              <div className="text-amber-400 text-4xl font-serif font-bold mb-1">150ft × 18ft</div>
+              <h3 className="text-xl font-serif font-semibold text-zinc-100 mb-2">
+                Heavy-Duty Kitchen &amp; Outdoor Buffet
               </h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <p className="text-zinc-400 text-sm leading-relaxed font-light">
                 Expansive cooking space backed by dedicated outdoor snack, live counter, and ice cream zones for large-scale catering.
               </p>
             </div>
-            <span className="mt-6 text-xs font-semibold uppercase tracking-widest text-slate-400">Catering Infrastructure</span>
+            <span className="mt-6 text-xs font-semibold uppercase tracking-widest text-amber-400 font-mono">Catering Infrastructure</span>
           </div>
         </div>
 
         {/* 3-Column Secondary Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          {/* Parking */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200/80 hover:border-amber-500/40 transition-all shadow-sm">
-            <div className="text-amber-600 text-4xl font-serif font-bold mb-1">250 + 350</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 mb-2">Cars & Motorcycles</div>
-            <h3 className="text-lg font-serif font-semibold text-slate-900 mb-2">Private Campus Parking</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              One of the largest dedicated private venue parking facilities in Mangalagiri with security supervision.
-            </p>
-          </div>
-
-          {/* Lodging */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200/80 hover:border-amber-500/40 transition-all shadow-sm">
-            <div className="text-amber-600 text-4xl font-serif font-bold mb-1">8 Suites</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 mb-2">Deluxe Lodging & Dorm</div>
-            <h3 className="text-lg font-serif font-semibold text-slate-900 mb-2">On-Site Accommodation</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Air-conditioned suites directly connected to the hall for bridal preparation, family elders, and VIP guests.
-            </p>
-          </div>
-
-          {/* Green Rooms & Access */}
-          <div className="bg-white rounded-3xl p-8 border border-slate-200/80 hover:border-amber-500/40 transition-all shadow-sm">
-            <div className="text-amber-600 text-4xl font-serif font-bold mb-1">VIP Rooms</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 mb-2">Bride & Groom Lounge</div>
-            <h3 className="text-lg font-serif font-semibold text-slate-900 mb-2">Luxury Green Rooms</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Opulent changing rooms with full-length vanity mirrors, private bathrooms, and wheelchair-accessible ramps.
-            </p>
-          </div>
-        </div>
-
-        {/* Secondary Facilities Accent Chips */}
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-20 text-sm text-slate-600">
-          {["Luxury Bridal Green Rooms", "Wheelchair Accessibility", "Soundproof Acoustic Setup", "Central AC + Jumbo Coolers"].map((item) => (
-            <span key={item} className="inline-flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-amber-600" />
-              <span className="font-medium">{item}</span>
-            </span>
-          ))}
-        </div>
-
-        {/* Power & Climate Contingency Guarantee */}
-        <div className="bg-[#1A1A1A] text-white rounded-3xl p-8 sm:p-12 border border-[#C5A059]/30 relative overflow-hidden">
-          <div className="absolute right-0 bottom-0 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-[140px] pointer-events-none" />
-
-          <div className="relative z-10 max-w-3xl space-y-4">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#DFCA95]">
-              Management Assurance
-            </span>
-            <h2 className="font-serif text-2xl sm:text-4xl font-bold text-white leading-tight">
-              Zero-Interruption Guarantee for Sacred Rituals
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              When auspicious muhurtham mantras are being chanted or celebrity musical performances are underway, power failures are unacceptable. Our twin automatic generator banks trigger within seconds of any main grid fluctuation, sustaining 100% of air conditioning chillers, stage spotlights, sound rigs, and kitchen elevators without interruption.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <Link
-                href="/check-availability"
-                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#DFCA95] via-[#C5A059] to-[#8C6D31] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
-              >
-                <Calendar className="w-4 h-4 text-[#1A1A1A]" />
-                <span>Check Event Availability</span>
-              </Link>
-
-              <a
-                href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
-                className="px-6 py-3.5 rounded-xl border border-[#C5A059]/40 text-[#DFCA95] font-semibold text-xs uppercase tracking-wider hover:bg-[#C5A059]/10 transition-colors flex items-center gap-2"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Speak with Operations Team</span>
-              </a>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {/* Card: Attached Lodging */}
+          <div className="p-8 rounded-3xl bg-zinc-900 border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center mb-4">
+                <Home className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-zinc-100 mb-2">
+                8 Attached Deluxe Suites
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                Air-conditioned family suites located at the Royal Banquet complex with attached western bathrooms for bride, groom, and immediate relatives.
+              </p>
             </div>
+            <div className="pt-4 mt-4 border-t border-zinc-800">
+              <Link href="/accommodation" className="text-xs font-bold text-amber-400 hover:text-amber-300 font-mono uppercase tracking-wider">
+                Explore Lodging Details →
+              </Link>
+            </div>
+          </div>
+
+          {/* Card: Dedicated Parking */}
+          <div className="p-8 rounded-3xl bg-zinc-900 border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center mb-4">
+                <Car className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-zinc-100 mb-2">
+                350+ Vehicle Paved Parking
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                Expansive on-campus secured parking grounds with designated traffic marshals ensuring smooth entry and egress for wedding convoys.
+              </p>
+            </div>
+            <div className="pt-4 mt-4 border-t border-zinc-800 text-xs text-zinc-400 font-mono">
+              Dedicated Bus &amp; Convoy Space
+            </div>
+          </div>
+
+          {/* Card: RO Water Plant */}
+          <div className="p-8 rounded-3xl bg-zinc-900 border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center mb-4">
+                <Droplet className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-zinc-100 mb-2">
+                Pure Commercial RO Plant
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                Continuous purified drinking water distribution throughout cooking, dining, and green room areas, maintaining high hygiene benchmarks.
+              </p>
+            </div>
+            <div className="pt-4 mt-4 border-t border-zinc-800 text-xs text-zinc-400 font-mono">
+              100% Certified Potable Standard
+            </div>
+          </div>
+        </div>
+
+        {/* Technical Checklist */}
+        <div className="bg-zinc-900 rounded-3xl p-8 sm:p-12 border border-amber-500/20 mb-16">
+          <h3 className="font-serif text-2xl font-bold text-zinc-100 mb-6 text-center">
+            Complete Engineering &amp; Operational Checklist
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              "Heavy-duty Daikin / Blue Star central climate control across halls",
+              "Acoustic paneling dampening echo in banquet halls",
+              "150ft kitchen frontage with commercial LPG gas manifold",
+              "Attached green rooms with private vanity mirrors & lockers",
+              "Dedicated freight elevator & ramp access for event decorators",
+              "CCTV perimeter monitoring & 24/7 security personnel",
+              "Unrestricted sound permit compliance within enclosed spaces",
+              "Direct highway connectivity on Gowtham Buddha Road",
+              "Complimentary campus sanitization before every event",
+            ].map((spec, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <span className="text-xs text-zinc-300 leading-relaxed font-light">{spec}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Footer */}
+        <div className="text-center max-w-xl mx-auto">
+          <h4 className="font-serif text-2xl font-bold text-zinc-100 mb-2">
+            Schedule an On-Campus Inspection
+          </h4>
+          <p className="text-xs text-zinc-400 mb-6 font-light">
+            Walk the stage dimensions, tour the kitchens, and view guest lodging rooms before reserving your date.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/contact"
+              className="px-6 py-2.5 rounded-xl bg-zinc-900 border border-amber-500/30 text-amber-300 font-bold text-xs uppercase tracking-wider hover:bg-zinc-800 transition-colors font-mono"
+            >
+              Get Directions &amp; Contact
+            </Link>
+            <Link
+              href="/check-availability"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md transition-all font-mono"
+            >
+              Check Date Availability
+            </Link>
           </div>
         </div>
       </div>

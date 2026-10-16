@@ -18,14 +18,14 @@ const galleryItems = [
   {
     id: 1,
     url: "/images/gallery/stage-royal-convention.jpg",
-    caption: "Grand 60-foot Royal Convention stage with traditional golden mandapam",
+    caption: "Royal Convention stage and celebration setting",
     category: "Stage Decor",
     venue: "Royal Convention",
   },
   {
     id: 2,
     url: "/images/gallery/interior-chandelier.jpg",
-    caption: "Soaring 28-foot ceiling with imported crystal chandeliers & marble",
+    caption: "Interior details at Royal Convention",
     category: "Interiors",
     venue: "Royal Convention",
   },
@@ -46,7 +46,7 @@ const galleryItems = [
   {
     id: 5,
     url: "/images/gallery/dining-hall-convention.jpg",
-    caption: "Dedicated mega dining hall accommodating 900 simultaneous diners",
+    caption: "Dining area at Royal Convention",
     category: "Dining",
     venue: "Royal Convention",
   },
@@ -88,7 +88,7 @@ const galleryItems = [
   {
     id: 11,
     url: "/images/gallery/exterior-parking.jpg",
-    caption: "Spacious paved parking lot accommodating 350+ four-wheelers",
+    caption: "Exterior parking area",
     category: "Exterior",
     venue: "Campus Infrastructure",
   },
@@ -132,7 +132,7 @@ export default function GalleryPage() {
             The Botanical Visual Gallery
           </h1>
           <p className="text-[15px] sm:text-base text-forest-charcoal/80 mt-4 leading-relaxed font-sans max-w-2xl mx-auto">
-            Experience our 4 signature halls, attached executive guest suites, expansive dining spaces, and architectural grounds in Mangalagiri.
+            Explore venue interiors, event settings, guest accommodation and exterior spaces. Contact our team to confirm facilities for your preferred venue.
           </p>
         </div>
 

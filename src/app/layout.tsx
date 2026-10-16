@@ -2,9 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Cinzel, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import FloatingMobileBar from "@/components/layout/FloatingMobileBar";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -25,7 +22,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#F6F2E8",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -106,7 +103,7 @@ export default function RootLayout({
         name: siteConfig.name,
         legalName: siteConfig.legalName,
         url: siteConfig.url,
-        logo: `${siteConfig.url}/images/logo.png`,
+        logo: `${siteConfig.url}${siteConfig.logo}`,
         description: siteConfig.description,
         telephone: siteConfig.contact.primaryPhone,
         email: siteConfig.contact.email,
@@ -171,11 +168,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-zinc-950 text-zinc-100 antialiased selection:bg-amber-500/20 selection:text-amber-300">
-        <Header />
-        <main className="flex-1 pb-20 md:pb-0">{children}</main>
-        <Footer />
-        <FloatingMobileBar />
+      <body className="min-h-screen flex flex-col bg-warm-cream text-forest-charcoal antialiased">
+        {children}
       </body>
     </html>
   );

@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Phone,
   Menu,
@@ -10,145 +12,106 @@ import {
   ChevronDown,
   Calendar,
   MapPin,
-  Clock,
-  Lock,
+  ArrowUpRight,
   MessageSquare,
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import BookingBottomSheet from "@/components/ui/BookingBottomSheet";
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hallsDropdownOpen, setHallsDropdownOpen] = useState(false);
-  const [sheetOpen, setSheetOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close menus on route change
   useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const closeMenus = () => {
     setMobileMenuOpen(false);
     setHallsDropdownOpen(false);
-  }, [pathname]);
+  };
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { label: "Overview", href: "/" },
+    { label: "Home", href: "/" },
     {
-      label: "Our Halls",
+      label: "Our Venues",
       href: "/halls",
       hasDropdown: true,
       children: [
-        {
-          name: "Royal Convention",
-          slug: "/royal-convention",
-          desc: "Largest Flagship AC Hall",
-          tag: "Grand Weddings",
-        },
-        {
-          name: "Vaishnavi Vaidehi",
-          slug: "/vaishnavi-vaidehi",
-          desc: "2nd Largest AC Hall Complex",
-          tag: "Grand Celebrations",
-        },
-        {
-          name: "Nannapaneni Lakshmi",
-          slug: "/nannapaneni-lakshmi",
-          desc: "Spacious Traditional Non-AC Hall",
-          tag: "Kalyanamandapam",
-        },
-        {
-          name: "Royal Banquets",
-          slug: "/royal-banquets",
-          desc: "Newest AC Banquet + Deluxe Lodging",
-          tag: "Banquet & Stay",
-        },
-        {
-          name: "Compare All 4 Venues",
-          slug: "/halls",
-          desc: "Side-by-side capacity and facility matrix",
-          tag: "Hall Matrix",
-        },
+        { name: "Royal Convention", slug: "/royal-convention", desc: "Flagship 900-seat pillarless auditorium" },
+        { name: "Vaishnavi Vaidehi", slug: "/vaishnavi-vaidehi", desc: "Grand 650-seat AC hall" },
+        { name: "Smt. Nannapaneni Lakshmi Function Hall", slug: "/nannapaneni-lakshmi", desc: "Traditional ceremonial hall · 150 seats" },
+        { name: "Royal Banquets", slug: "/royal-banquets", desc: "Contemporary AC banquet + 8 suites" },
+        { name: "Compare All Venues", slug: "/halls", desc: "Side-by-side venue overview" },
       ],
     },
-    { label: "Accommodation", href: "/accommodation" },
+    { label: "Guest Suites", href: "/accommodation" },
     { label: "Facilities", href: "/facilities" },
     { label: "Gallery", href: "/gallery" },
-    { label: "About Us", href: "/about-us" },
+    { label: "About", href: "/about-us" },
     { label: "Contact", href: "/contact" },
   ];
 
+  const hallsActive =
+    pathname.startsWith("/royal-") ||
+    pathname === "/halls" ||
+    pathname === "/vaishnavi-vaidehi" ||
+    pathname === "/nannapaneni-lakshmi";
+
   return (
     <>
-      {/* Sleek fixed frosted glass header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-amber-500/20">
-        {/* Desktop top ticker */}
-        <div className="bg-zinc-950/95 text-zinc-400 text-[11px] py-1.5 px-4 border-b border-amber-500/10 hidden md:block">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <span className="flex items-center gap-1.5 text-amber-400/80 font-mono">
-                <MapPin className="w-3 h-3 text-amber-400" />
-                Gowtham Buddha Road, Mangalagiri • AP
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "py-2.5 bg-warm-cream/95 backdrop-blur-md shadow-sm border-b border-natural-sand"
+            : "py-4 sm:py-5 bg-warm-cream/80 backdrop-blur-sm border-b border-natural-sand/60"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="flex items-center justify-between">
+            {/* Official brand logo + wordmark */}
+            <Link
+              href="/"
+              onClick={closeMenus}
+              className="flex items-center gap-3 group shrink-0"
+              aria-label="The Royal Conventions Home"
+            >
+              <span className="relative block h-10 w-10 sm:h-[52px] sm:w-[52px] rounded-2xl overflow-hidden ring-1 ring-natural-sand shadow-xs shrink-0 bg-black">
+                <Image
+                  src={siteConfig.logo}
+                  alt="The Royal Conventions emblem"
+                  fill
+                  sizes="(max-width: 640px) 40px, 52px"
+                  className="object-contain"
+                  priority
+                />
               </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-3 h-3 text-amber-500/70" />
-                Daily Walkthroughs: 09:00 AM – 08:30 PM
-              </span>
-            </div>
-            <div className="flex items-center space-x-5">
-              <a
-                href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
-                className="hover:text-amber-400 transition-colors flex items-center gap-1.5"
-              >
-                <Phone className="w-3 h-3 text-amber-400" />
-                Manager: {siteConfig.contact.primaryPhone}
-              </a>
-              <span className="text-zinc-800">|</span>
-              <Link
-                href="/admin/dashboard"
-                className="hover:text-amber-400 flex items-center gap-1 transition-colors text-[11px]"
-              >
-                <Lock className="w-3 h-3 text-amber-500/70" />
-                Admin
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Navbar Bar */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            {/* BRANDING: Left-aligned logo with gold monogram emblem (TRC) */}
-            <Link href="/" className="group flex items-center gap-2.5 shrink-0">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 transition-all group-hover:bg-amber-500/20 group-hover:border-amber-500/50">
-                <span className="font-serif font-bold text-amber-400 text-sm sm:text-base leading-none tracking-tight">
-                  TRC
-                </span>
-              </div>
-
-              <div className="flex flex-col leading-none">
-                <span className="font-serif text-amber-100 tracking-wider uppercase text-sm sm:text-base font-semibold leading-none">
+              <div className="flex flex-col">
+                <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-deep-sage leading-none">
                   THE ROYAL CONVENTIONS
                 </span>
-                <span className="text-[9px] text-amber-400/80 font-mono tracking-widest uppercase leading-none mt-1">
-                  MANGALAGIRI • AP
+                <span className="text-[10px] uppercase tracking-[0.22em] text-forest-charcoal/70 font-sans mt-1">
+                  Mangalagiri · AP
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-1" aria-label="Main Navigation">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = link.hasDropdown ? hallsActive : pathname === link.href;
 
                 if (link.hasDropdown) {
                   return (
@@ -157,43 +120,62 @@ export default function Header() {
                       className="relative"
                       onMouseEnter={() => setHallsDropdownOpen(true)}
                       onMouseLeave={() => setHallsDropdownOpen(false)}
+                      onBlur={(e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                          setHallsDropdownOpen(false);
+                        }
+                      }}
                     >
                       <button
-                        className={`px-3.5 py-2 text-xs font-semibold rounded-xl transition-all flex items-center gap-1 ${
-                          pathname.startsWith("/royal-") || pathname === "/halls"
-                            ? "text-amber-400 bg-amber-500/10 border border-amber-500/30"
-                            : "text-zinc-300 hover:text-amber-300 hover:bg-zinc-900/80"
+                        type="button"
+                        onClick={() => setHallsDropdownOpen((open) => !open)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Escape") setHallsDropdownOpen(false);
+                        }}
+                        aria-expanded={hallsDropdownOpen}
+                        aria-haspopup="true"
+                        className={`px-3.5 py-2 text-[14px] font-medium rounded-full transition-colors flex items-center gap-1.5 ${
+                          isActive
+                            ? "text-deep-sage font-semibold bg-soft-sage/20"
+                            : "text-forest-charcoal hover:text-deep-sage hover:bg-soft-sage/15"
                         }`}
                       >
                         {link.label}
                         <ChevronDown className="w-3.5 h-3.5 opacity-70" />
                       </button>
 
-                      {hallsDropdownOpen && (
-                        <div className="absolute top-full left-0 w-80 pt-2 z-50 animate-in fade-in duration-200">
-                          <div className="bg-zinc-950/98 backdrop-blur-2xl rounded-2xl shadow-2xl border border-amber-500/20 p-2 space-y-1">
-                            {link.children?.map((child) => (
-                              <Link
-                                key={child.slug}
-                                href={child.slug}
-                                className="block p-3 rounded-xl hover:bg-amber-500/10 transition-colors group/item"
-                              >
-                                <div className="flex items-center justify-between">
-                                  <span className="text-xs font-bold text-zinc-100 group-hover/item:text-amber-300">
-                                    {child.name}
-                                  </span>
-                                  <span className="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-semibold border border-amber-500/30">
-                                    {child.tag}
-                                  </span>
-                                </div>
-                                <p className="text-[11px] text-zinc-400 mt-0.5 line-clamp-1">
-                                  {child.desc}
-                                </p>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+                      <AnimatePresence>
+                        {hallsDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                            transition={{ duration: 0.18 }}
+                            className="absolute top-full left-0 w-80 pt-2 z-50"
+                          >
+                            <div className="bg-white rounded-2xl shadow-xl border border-natural-sand p-2 space-y-1">
+                              {link.children?.map((child) => (
+                                <Link
+                                  key={child.slug}
+                                  href={child.slug}
+                                  onClick={closeMenus}
+                                  className="block p-3 rounded-xl hover:bg-warm-cream transition-colors group/item"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-sm font-semibold text-deep-sage group-hover/item:translate-x-0.5 transition-transform">
+                                      {child.name}
+                                    </span>
+                                    <ArrowUpRight className="w-3.5 h-3.5 text-soft-sage group-hover/item:text-deep-sage" />
+                                  </div>
+                                  <p className="text-[12px] text-forest-charcoal/70 mt-0.5">
+                                    {child.desc}
+                                  </p>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   );
                 }
@@ -202,10 +184,10 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3.5 py-2 text-xs font-semibold rounded-xl transition-all ${
+                    className={`px-3.5 py-2 text-[14px] font-medium rounded-full transition-colors ${
                       isActive
-                        ? "text-amber-400 bg-amber-500/10 border border-amber-500/30"
-                        : "text-zinc-300 hover:text-amber-300 hover:bg-zinc-900/80"
+                        ? "text-deep-sage font-semibold bg-soft-sage/20"
+                        : "text-forest-charcoal hover:text-deep-sage hover:bg-soft-sage/15"
                     }`}
                   >
                     {link.label}
@@ -214,136 +196,140 @@ export default function Header() {
               })}
             </nav>
 
-            {/* Desktop Action Buttons */}
-            <div className="hidden lg:flex items-center space-x-3">
+            {/* Desktop CTAs */}
+            <div className="hidden lg:flex items-center gap-3">
               <a
                 href={siteConfig.contact.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3.5 py-2 rounded-xl border border-amber-500/30 bg-zinc-900/80 text-xs font-semibold text-amber-200 hover:bg-amber-500/10 transition-all flex items-center gap-1.5"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-natural-sand text-[13px] font-medium text-deep-sage hover:bg-white transition-colors"
+                aria-label="WhatsApp enquiry"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-green-400" />
+                <MessageSquare className="w-3.5 h-3.5 text-deep-sage" />
                 <span>WhatsApp</span>
               </a>
+
               <Link
                 href="/check-availability"
-                className="px-5 py-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-zinc-950 text-xs font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all flex items-center gap-1.5"
+                className="inline-flex items-center gap-2 bg-deep-sage text-pure-white hover:bg-[#1E372B] px-5 py-2.5 rounded-full text-[13px] font-semibold transition-all shadow-sm shadow-deep-sage/20 hover:shadow-md"
               >
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Dates</span>
+                <span>Check Dates</span>
               </Link>
             </div>
 
-            {/* CONTROLS: Mobile Right-aligned compact gold pill ("Dates") + clean hamburger toggle */}
+            {/* Mobile Actions: Compact Dates CTA + Menu Toggle */}
             <div className="flex items-center gap-2 lg:hidden">
               <Link
                 href="/check-availability"
-                className="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 text-xs font-semibold flex items-center gap-1 shadow-sm shadow-amber-500/20 active:scale-95 transition-transform"
+                onClick={closeMenus}
+                className="inline-flex items-center gap-1.5 bg-deep-sage text-pure-white px-3.5 py-2 rounded-full text-[12px] font-semibold min-h-[44px]"
               >
-                <Calendar className="w-3 h-3 text-zinc-950" />
+                <Calendar className="w-3.5 h-3.5" />
                 <span>Dates</span>
               </Link>
 
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xl text-zinc-300 hover:bg-zinc-900 transition-colors border border-amber-500/20"
-                aria-label="Toggle Mobile Menu"
+                className="w-11 h-11 rounded-full flex items-center justify-center text-deep-sage border border-natural-sand bg-white/70 hover:bg-white transition-colors"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5 text-amber-400" /> : <Menu className="w-5 h-5 text-zinc-200" />}
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* MOBILE OVERLAY: Full-screen dark glass drawer (bg-zinc-950/98 backdrop-blur-xl) */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-14 bg-zinc-950/98 backdrop-blur-xl z-50 overflow-y-auto">
-          <div className="px-5 pt-6 pb-28 space-y-1">
-            <div className="text-[10px] font-bold uppercase tracking-widest text-amber-400/80 font-mono px-3 pb-3">
-              Campus Venues &amp; Navigation
+      {/* Mobile Animated Drawer Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 top-0 z-40 bg-warm-cream/98 backdrop-blur-xl lg:hidden flex flex-col pt-20 px-6 pb-8 overflow-y-auto"
+          >
+            <div className="py-2">
+              <p className="text-[11px] uppercase tracking-[0.22em] text-deep-sage/75 font-semibold mb-2">
+                The Royal Conventions
+              </p>
             </div>
 
-            {navLinks.map((link) => {
-              if (link.hasDropdown) {
+            <div className="space-y-1 divide-y divide-natural-sand/60">
+              {navLinks.map((link) => {
+                if (link.hasDropdown) {
+                  return (
+                    <div key={link.label} className="pt-2 pb-3">
+                      <p className="text-[12px] font-semibold uppercase tracking-wider text-forest-charcoal/60 px-2 mb-2">
+                        Venues on Campus
+                      </p>
+                      <div className="space-y-1 pl-2">
+                        {link.children?.map((child) => (
+                          <Link
+                            key={child.slug}
+                            href={child.slug}
+                            onClick={closeMenus}
+                            className="block py-2 text-[15px] font-semibold text-deep-sage hover:translate-x-1 transition-transform"
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
-                  <div key={link.label} className="py-2 border-b border-zinc-900">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-amber-500/60 font-mono px-3 pb-2">
-                      Our Halls
-                    </div>
-                    <div className="space-y-1.5">
-                      {link.children?.map((child) => (
-                        <Link
-                          key={child.slug}
-                          href={child.slug}
-                          className="block p-3 rounded-xl bg-zinc-900/80 border border-amber-500/10 hover:border-amber-500/40 transition-colors"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-zinc-100 font-bold text-xs">{child.name}</span>
-                            <span className="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-semibold font-mono">
-                              {child.tag}
-                            </span>
-                          </div>
-                          <span className="block text-[11px] text-zinc-400 mt-1">{child.desc}</span>
-                        </Link>
-                      ))}
-                    </div>
+                  <div key={link.href} className="py-2">
+                    <Link
+                      href={link.href}
+                      onClick={closeMenus}
+                      className="block py-2 text-[17px] font-medium text-forest-charcoal hover:text-deep-sage transition-colors"
+                    >
+                      {link.label}
+                    </Link>
                   </div>
                 );
-              }
+              })}
+            </div>
 
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block px-3 py-3.5 rounded-xl text-sm font-semibold transition-colors ${
-                    pathname === link.href
-                      ? "text-amber-400 bg-amber-500/10 border border-amber-500/30"
-                      : "text-zinc-200 hover:bg-zinc-900/80"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-
-            {/* Mobile drawer bottom actions: Prominent Call Manager button */}
-            <div className="pt-6 border-t border-zinc-900 space-y-3">
-              <a
-                href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-zinc-950 font-bold text-sm shadow-[0_0_20px_rgba(245,158,11,0.25)] transition-all"
-              >
-                <Phone className="w-4 h-4 text-zinc-950" />
-                <span>Call Manager (+91 9866333055)</span>
-              </a>
-
+            {/* Mobile Contact Quick Actions */}
+            <div className="mt-auto pt-6 border-t border-natural-sand space-y-3">
               <Link
                 href="/check-availability"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-zinc-900 border border-amber-500/30 text-amber-200 font-semibold text-sm hover:bg-zinc-800 transition-colors"
+                onClick={closeMenus}
+                className="w-full inline-flex items-center justify-center gap-2 bg-deep-sage text-pure-white font-semibold text-sm py-3.5 rounded-full shadow-md min-h-[48px]"
               >
-                <Calendar className="w-4 h-4 text-amber-400" />
-                <span>Check Real-Time Availability</span>
+                <Calendar className="w-4 h-4" />
+                <span>Enquire Date Availability</span>
               </Link>
 
-              <a
-                href={siteConfig.contact.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-300 font-semibold text-sm hover:bg-zinc-800 transition-colors"
-              >
-                <MessageSquare className="w-4 h-4 text-green-400" />
-                <span>Chat on WhatsApp</span>
-              </a>
+              <div className="grid grid-cols-2 gap-3">
+                <a
+                  href={`tel:${siteConfig.contact.primaryPhone.replace(/\s+/g, "")}`}
+                  className="inline-flex items-center justify-center gap-1.5 border border-natural-sand bg-white text-forest-charcoal font-medium text-[13px] py-3 rounded-full min-h-[48px]"
+                >
+                  <Phone className="w-4 h-4 text-deep-sage" />
+                  <span>Call Us</span>
+                </a>
+                <a
+                  href={siteConfig.contact.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 border border-natural-sand bg-white text-forest-charcoal font-medium text-[13px] py-3 rounded-full min-h-[48px]"
+                >
+                  <MessageSquare className="w-4 h-4 text-deep-sage" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Availability Sheet */}
-      <BookingBottomSheet isOpen={sheetOpen} onClose={() => setSheetOpen(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

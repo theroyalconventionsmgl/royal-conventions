@@ -22,7 +22,7 @@ export function hasShiftConflict(shiftA: Shift, shiftB: Shift): boolean {
 }
 
 // In-memory persistent mock storage for real-time demo & local development
-let mockBookings: BookingRecord[] = [
+const mockBookings: BookingRecord[] = [
   {
     id: "bk-101",
     venueId: "royal-convention",

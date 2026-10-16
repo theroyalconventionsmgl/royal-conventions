@@ -42,6 +42,7 @@ export const siteConfig = {
   description:
     "Mangalagiri's premier luxury multi-venue destination featuring Royal Convention, Royal Banquets with Deluxe Lodging, and Vaishnavi Vaidehi. Designed for magnificent weddings, prestigious corporate galas, and bespoke family milestones.",
   url: "https://theroyalconventions.com",
+  logo: "/images/the-royal-conventions-logo.jpeg",
   proprietor: {
     name: "N. Nageswara Rao",
     title: "Proprietor & Founder",

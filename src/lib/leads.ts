@@ -1,25 +1,40 @@
 import { db } from "./firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { enquirySchema, type EnquiryFormValues } from "./validations";
 
-export interface BookingLead {
-  name: string;
-  phone: string;
-  hallId: "royal-convention" | "vaishnavi-vaidehi" | "nannapaneni-lakshmi" | "royal-banquets";
-  eventDate?: string;
-  guestCount?: number;
-  notes?: string;
+export interface EnquiryLead extends EnquiryFormValues {
+  venueName?: string;
+  shiftName?: string;
+  source?: string;
 }
 
-export async function submitBookingLead(lead: BookingLead) {
+type SubmitResult =
+  | { success: true; inquiryId: string }
+  | { success: false; error: string };
+
+export async function submitBookingLead(lead: EnquiryLead): Promise<SubmitResult> {
+  const { venueName, shiftName, source, ...candidate } = lead;
+  const parsed = enquirySchema.safeParse(candidate);
+  if (!parsed.success) {
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Please check the highlighted fields and try again.",
+    };
+  }
+
   try {
     const docRef = await addDoc(collection(db, "leads"), {
-      ...lead,
-      status: "new",
+      ...parsed.data,
+      ...(venueName ? { venueName } : {}),
+      ...(shiftName ? { shiftName } : {}),
+      ...(source ? { source } : {}),
+      status: "NEW",
       createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
     });
-    return { success: true, id: docRef.id };
+    return { success: true, inquiryId: docRef.id };
   } catch (error) {
     console.error("Error submitting lead:", error);
-    return { success: false, error };
+    return { success: false, error: "Unable to submit inquiry. Please try again or call us." };
   }
 }

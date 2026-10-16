@@ -1,101 +1,83 @@
 @import "tailwindcss";
 
-/* Luxury type system: Cinzel display serif + Plus Jakarta Sans body.
-   Tailwind v4 CSS-first config — these tokens override the default
-   --font-sans / --font-serif utilities used across all components. */
+/* Botanical Luxury design system:
+   Warm cream canvas, deep sage identity, soft sage secondary, natural sand accents,
+   pure white elevations, and forest charcoal typography. */
 @theme {
   --font-sans: var(--font-jakarta), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-serif: var(--font-cinzel), var(--font-playfair), Georgia, serif;
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+
+  --color-warm-cream: #F6F2E8;
+  --color-deep-sage: #294C3B;
+  --color-soft-sage: #A8B9A0;
+  --color-natural-sand: #D9CDB8;
+  --color-forest-charcoal: #3D4338;
+  --color-pure-white: #FFFFFF;
+
   --tracking-luxury: 0.15em;
   --tracking-tightest: -0.035em;
 }
 
 @layer base {
   :root {
-    --background: #09090B;
-    --background-alt: #18181B;
-    --foreground: #F4F4F5;
-    --card-surface: #18181B;
-    --card-surface-pearl: #27272A;
-    --card-border: rgba(245, 158, 11, 0.2);
-    --gold-primary: #F59E0B;
-    --gold-deep: #D97706;
-    --gold-light: #FEF3C7;
-    --gold-border: rgba(245, 158, 11, 0.25);
-    --gold-glow: rgba(245, 158, 11, 0.15);
-    --obsidian: #09090B;
-    --charcoal: #18181B;
-    --muted-slate: #A1A1AA;
+    --background: #F6F2E8;
+    --foreground: #3D4338;
+
+    --deep-sage: #294C3B;
+    --warm-cream: #F6F2E8;
+    --soft-sage: #A8B9A0;
+    --natural-sand: #D9CDB8;
+    --forest-charcoal: #3D4338;
+    --pure-white: #FFFFFF;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: #F6F2E8;
+    color: #3D4338;
     font-family: var(--font-jakarta), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Eliminate the 300ms mobile tap delay on all interactions */
   html, body {
     touch-action: manipulation;
   }
 
-  /* Accessible, consistent focus visibility across the app */
+  /* Accessible, visible focus ring */
   :where(a, button, input, select, textarea, [role="button"]):focus-visible {
-    outline: 2px solid #F59E0B;
+    outline: 2px solid #294C3B;
     outline-offset: 2px;
     border-radius: 0.5rem;
   }
 
   h1, h2, h3, h4, .font-serif {
-    font-family: var(--font-cinzel), var(--font-playfair), Georgia, serif;
-    letter-spacing: -0.01em;
+    font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+    letter-spacing: -0.015em;
   }
 }
 
-/* Ambient Radial Backgrounds for Obsidian & Gold Luxury */
-.bg-obsidian-radial {
-  background: radial-gradient(ellipse at top, #18181B 0%, #09090B 70%, #000000 100%);
+/* Subtle botanical organic background gradients */
+.bg-cream-radial {
+  background: radial-gradient(ellipse at top, #FFFFFF 0%, #F6F2E8 60%, #EFE8DA 100%);
 }
 
-.bg-gold-subtle-radial {
-  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, rgba(9, 9, 11, 0) 70%);
+.bg-sage-radial {
+  background: radial-gradient(ellipse at top, #325A47 0%, #294C3B 70%, #1E372B 100%);
 }
 
-/* Luxury Glassmorphism Cards (Dark Mode) */
-.bg-glass-card-dark {
-  background: rgba(24, 24, 27, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
+/* Botanical Card Elevation */
+.bg-botanical-card {
+  background-color: #FFFFFF;
+  border: 1px solid #D9CDB8;
+  box-shadow: 0 4px 20px -2px rgba(41, 76, 59, 0.05);
 }
 
-.bg-glass-card-dark:hover {
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 0 25px rgba(245, 158, 11, 0.12);
+.bg-botanical-card:hover {
+  border-color: #A8B9A0;
+  box-shadow: 0 12px 30px -4px rgba(41, 76, 59, 0.1);
 }
 
-/* Refined Metallic Gold Text Gradients */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #B45309 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Glowing Border Utilities */
-.border-glow-gold {
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.2);
-}
-
-.border-glow-subtle {
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
-}
-
-/* Hide scrollbar for touch carousels while preserving scroll functionality */
+/* Hide scrollbar for carousels while keeping scroll accessibility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -104,10 +86,21 @@
   scrollbar-width: none;
 }
 
-/* Smooth Scrolling & Obsidian Luxury Scrollbar */
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -115,13 +108,13 @@ html {
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #09090B;
+  background: #F6F2E8;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272A;
+  background: #A8B9A0;
   border-radius: 9999px;
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  border: 1px solid #F6F2E8;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F59E0B;
+  background: #294C3B;
 }

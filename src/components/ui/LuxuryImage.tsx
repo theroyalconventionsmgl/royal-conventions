@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { OBSIDIAN_BLUR_DATA_URL } from "@/lib/image-placeholder";
+import { SOFT_BLUR_DATA_URL } from "@/lib/image-placeholder";
 
 interface LuxuryImageProps {
   src: string;
@@ -24,10 +24,9 @@ export default function LuxuryImage({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  // Elegant fallback architectural visual when asset is loading or missing
   return (
     <div
-      className={`relative overflow-hidden bg-gradient-to-br from-[#1E1E1E] via-[#2A241C] to-[#121212] ${aspectRatio} ${className}`}
+      className={`relative overflow-hidden bg-warm-cream ${aspectRatio} ${className}`}
     >
       {!hasError ? (
         <Image
@@ -42,16 +41,16 @@ export default function LuxuryImage({
           onLoad={() => setImageLoaded(true)}
           onError={() => setHasError(true)}
           placeholder="blur"
-          blurDataURL={OBSIDIAN_BLUR_DATA_URL}
+          blurDataURL={SOFT_BLUR_DATA_URL}
         />
       ) : null}
 
-      {/* Luxury architectural fallback graphic if image path doesn't exist yet */}
+      {/* Fallback graphic if image is loading or missing */}
       {(!imageLoaded || hasError) && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-tr from-[#1A1A1A] via-[#2A2318] to-[#181818]">
-          <div className="w-14 h-14 rounded-full border border-[#C5A059]/40 flex items-center justify-center mb-3 bg-[#C5A059]/10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-warm-cream">
+          <div className="w-14 h-14 rounded-full border border-natural-sand flex items-center justify-center mb-3 bg-soft-sage/20">
             <svg
-              className="w-7 h-7 text-[#DFCA95]"
+              className="w-7 h-7 text-deep-sage"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -64,21 +63,17 @@ export default function LuxuryImage({
               />
             </svg>
           </div>
-          <span className="text-[10px] tracking-[0.25em] text-[#C5A059] uppercase font-bold">
+          <span className="text-[10px] tracking-[0.22em] text-deep-sage uppercase font-semibold">
             {category}
           </span>
-          <p className="text-xs font-serif text-zinc-200 mt-1 max-w-[240px] font-semibold line-clamp-2">
+          <p className="text-sm font-serif text-forest-charcoal mt-1 max-w-[240px] line-clamp-2">
             {alt}
           </p>
-          <div className="mt-2 flex items-center gap-1.5 text-[9px] text-[#DFCA95]/80 uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
-            Verified Campus Asset
-          </div>
         </div>
       )}
 
-      {/* Subtle luxury vignette overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+      {/* Soft botanical gradient for overlaid labels */}
+      <div className="absolute inset-0 bg-gradient-to-t from-deep-sage/40 via-transparent to-transparent pointer-events-none" />
     </div>
   );
 }

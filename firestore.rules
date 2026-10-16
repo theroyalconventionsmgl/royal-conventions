@@ -1,12 +1,208 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow website visitors to submit booking inquiry leads
+
+    // ---------- Helpers ----------
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function staffDoc() {
+      return get(/databases/$(database)/documents/staff/$(request.auth.uid)).data;
+    }
+
+    function isStaff() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/staff/$(request.auth.uid))
+        && get(/databases/$(database)/documents/staff/$(request.auth.uid)).data.active == true;
+    }
+
+    function isOwner() {
+      return isStaff() && staffDoc().role == 'owner';
+    }
+
+    // True when this session completed a second factor (TOTP authenticator).
+    // Used to gate money movement, calendar locks, and access changes.
+    function mfaOk() {
+      return signedIn() && request.auth.token.firebase.sign_in_second_factor != null;
+    }
+
+    function staffVenues() {
+      return staffDoc().venues;
+    }
+
+    // Owner: every venue. Manager: only venues listed on their staff record.
+    function venueAllowed(venueId) {
+      return isOwner() || (isStaff() && staffDoc().role == 'manager' && venueId in staffVenues());
+    }
+
+    function validVenue(venueId) {
+      return venueId in ['royal-convention', 'vaishnavi-vaidehi', 'nannapaneni-lakshmi', 'royal-banquets'];
+    }
+
+    function validShift(shift) {
+      return shift in ['MORNING_SHIFT', 'EVENING_SHIFT', 'FULL_DAY'];
+    }
+
+    function validDate(dateStr) {
+      return dateStr is string && dateStr.matches('^\\d{4}-\\d{2}-\\d{2}$');
+    }
+
+    // Forward-only pipeline transitions (legacy values may move forward too).
+    function transitionOk(from, to) {
+      return (from == 'NEW' && to in ['CONTACTED', 'LOST', 'CANCELLED'])
+        || (from == 'CONTACTED' && to in ['NEGOTIATION', 'LOST', 'CANCELLED'])
+        || (from == 'NEGOTIATION' && to in ['AWAITING_CONFIRMATION', 'LOST', 'CANCELLED'])
+        || (from == 'AWAITING_CONFIRMATION' && to in ['CONFIRMED', 'NEGOTIATION', 'LOST', 'CANCELLED'])
+        || (from == 'CONFIRMED' && to == 'CANCELLED')
+        || (from == 'MAINTENANCE_BLOCK' && to == 'CANCELLED')
+        || (from == 'NEW_ENQUIRY' && to in ['NEW', 'CONTACTED', 'NEGOTIATION', 'LOST', 'CANCELLED'])
+        || (from == 'PROVISIONAL_HOLD' && to in ['NEGOTIATION', 'AWAITING_CONFIRMATION', 'LOST', 'CANCELLED']);
+    }
+
+    // ---------- Public enquiries ----------
     match /leads/{leadId} {
-      allow create: if request.resource.data.keys().hasAll(['name', 'phone', 'hallId', 'createdAt'])
-                   && request.resource.data.name is string
-                   && request.resource.data.phone is string;
-      allow read, update, delete: if false; // Only accessible via Firebase Console / Admin SDK
+      // Website visitors create enquiries. Strict allowlist: no financial,
+      // confirmation, or audit fields may be set by the public.
+      allow create: if request.resource.data.keys().hasOnly([
+          'venueId', 'venueName', 'date', 'shift', 'shiftName',
+          'customerName', 'customerPhone', 'customerEmail', 'guestCount',
+          'eventType', 'notes', 'source', 'status', 'createdAt', 'updatedAt'
+        ])
+        && request.resource.data.status == 'NEW'
+        && validVenue(request.resource.data.venueId)
+        && validDate(request.resource.data.date)
+        && validShift(request.resource.data.shift)
+        && request.resource.data.customerName is string
+        && request.resource.data.customerName.size() >= 2
+        && request.resource.data.customerPhone is string
+        && request.resource.data.customerPhone.size() >= 10
+        && request.resource.data.eventType is string
+        && request.resource.data.eventType.size() >= 2;
+
+      allow read: if venueAllowed(resource.data.get('venueId', ''));
+
+      allow update: if isStaff()
+        && venueAllowed(resource.data.get('venueId', ''))
+        && request.resource.data.venueId == resource.data.get('venueId', '')
+        && request.resource.data.date == resource.data.get('date', '')
+        && request.resource.data.shift == resource.data.get('shift', '')
+        && transitionOk(resource.data.status, request.resource.data.status)
+        // Confirmation must record who/when, carry a hold, and lock real terms.
+        // Confirming also requires a verified second factor on the session.
+        && (
+          request.resource.data.status != 'CONFIRMED' || (
+            resource.data.status == 'AWAITING_CONFIRMATION'
+            && request.resource.data.confirmedByUid == request.auth.uid
+            && request.resource.data.confirmedAt == request.time
+            && request.resource.data.holdId is string
+            && request.resource.data.totalAmount is number
+            && request.resource.data.totalAmount > 0
+            && request.resource.data.advanceRequired is number
+            && request.resource.data.advanceRequired >= 0
+            && mfaOk()
+          )
+        )
+        // After confirmation, only the owner may change locked amounts.
+        && (
+          resource.data.status != 'CONFIRMED'
+          || request.resource.data.totalAmount == resource.data.get('totalAmount', 0)
+          || isOwner()
+        )
+        // Money-received is derived from payment docs; never written directly.
+        && request.resource.data.get('amountReceived', null) == resource.data.get('amountReceived', null);
+
+      allow delete: if false;
+
+      // ---------- Follow-up notes ----------
+      match /notes/{noteId} {
+        allow read: if venueAllowed(get(/databases/$(database)/documents/leads/$(leadId)).data.get('venueId', ''));
+        allow create: if isStaff()
+          && venueAllowed(get(/databases/$(database)/documents/leads/$(leadId)).data.get('venueId', ''))
+          && request.resource.data.keys().hasOnly(['text', 'authorUid', 'authorEmail', 'createdAt'])
+          && request.resource.data.text is string
+          && request.resource.data.text.size() >= 1
+          && request.resource.data.text.size() <= 2000
+          && request.resource.data.authorUid == request.auth.uid;
+        allow update, delete: if false;
+      }
+
+      // ---------- Payment transactions (immutable ledger) ----------
+      // Recording money requires a verified second factor on the session.
+      match /payments/{paymentId} {
+        allow read: if venueAllowed(get(/databases/$(database)/documents/leads/$(leadId)).data.get('venueId', ''));
+        allow create: if isStaff()
+          && mfaOk()
+          && venueAllowed(get(/databases/$(database)/documents/leads/$(leadId)).data.get('venueId', ''))
+          && request.resource.data.keys().hasOnly([
+            'type', 'amount', 'method', 'reference', 'receivedAt',
+            'recordedByUid', 'recordedByEmail', 'createdAt'
+          ])
+          && request.resource.data.type in ['ADVANCE', 'INSTALMENT', 'REFUND']
+          && request.resource.data.amount is number
+          && request.resource.data.amount > 0
+          && validDate(request.resource.data.receivedAt)
+          && request.resource.data.recordedByUid == request.auth.uid;
+        allow update, delete: if false;
+      }
+
+      // ---------- Audit trail (append-only) ----------
+      match /audit/{auditId} {
+        allow read: if venueAllowed(get(/databases/$(database)/documents/leads/$(leadId)).data.get('venueId', ''));
+        allow create: if isStaff()
+          && venueAllowed(get(/databases/$(database)/documents/leads/$(leadId)).data.get('venueId', ''))
+          && request.resource.data.keys().hasOnly(['action', 'actorUid', 'actorEmail', 'before', 'after', 'createdAt'])
+          && request.resource.data.actorUid == request.auth.uid;
+        allow update, delete: if false;
+      }
+    }
+
+    // ---------- Calendar holds: public read (real availability), staff write ----------
+    // Placing or releasing holds requires a verified second factor.
+    match /holds/{holdId} {
+      allow read: if true;
+      allow create: if isStaff()
+        && mfaOk()
+        && validVenue(request.resource.data.venueId)
+        && validDate(request.resource.data.date)
+        && validShift(request.resource.data.shift)
+        && venueAllowed(request.resource.data.venueId)
+        && request.resource.data.status == 'active'
+        && request.resource.data.leadId is string;
+      // Holds may only be released, never rewritten or deleted.
+      allow update: if isStaff()
+        && mfaOk()
+        && venueAllowed(resource.data.venueId)
+        && resource.data.status == 'active'
+        && request.resource.data.status == 'released'
+        && request.resource.data.venueId == resource.data.venueId
+        && request.resource.data.date == resource.data.date
+        && request.resource.data.shift == resource.data.shift
+        && request.resource.data.leadId == resource.data.leadId;
+      allow delete: if false;
+    }
+
+    // ---------- Staff directory: owner-managed (first owner via Firebase Console) ----------
+    // Any staff write requires a verified second factor on the owner session.
+    match /staff/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isOwner());
+      allow create, update: if isOwner()
+        && mfaOk()
+        && request.resource.data.role in ['owner', 'manager']
+        && request.resource.data.active is bool;
+      allow delete: if false;
+    }
+
+    // ---------- Staff administration audit (owner only, append-only) ----------
+    match /adminAudit/{entryId} {
+      allow read: if isOwner();
+      allow create: if isOwner()
+        && mfaOk()
+        && request.resource.data.keys().hasOnly([
+          'action', 'targetUid', 'actorUid', 'actorEmail', 'before', 'after', 'createdAt'
+        ])
+        && request.resource.data.actorUid == request.auth.uid;
+      allow update, delete: if false;
     }
   }
 }

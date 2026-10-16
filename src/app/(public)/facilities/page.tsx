@@ -17,9 +17,9 @@ import {
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Verified Campus Facilities & Amenities | Mangalagiri",
+  title: "Facilities & Amenities | The Royal Conventions, Mangalagiri",
   description:
-    "Explore the verified luxury amenities at The Royal Conventions Mangalagiri: 100% Central AC, Caterpillar DG backup, 350+ car parking, attached lodging, and mega kitchens.",
+    "Explore facilities and amenities at The Royal Conventions in Mangalagiri. Contact our team to confirm availability and details for your preferred venue.",
 };
 
 export default function FacilitiesPage() {
@@ -36,7 +36,7 @@ export default function FacilitiesPage() {
             Campus Amenities &amp; Infrastructure
           </h1>
           <p className="text-[15px] sm:text-base text-forest-charcoal/80 mt-4 leading-relaxed font-sans max-w-2xl mx-auto">
-            A grand wedding or high-stakes convention depends on flawless infrastructure. Here is how The Royal Conventions guarantees seamless event operations.
+            Every celebration has different requirements. Explore the facilities listed below and confirm specific arrangements with our team before booking.
           </p>
         </div>
 
@@ -47,10 +47,10 @@ export default function FacilitiesPage() {
             <div>
               <div className="text-deep-sage text-5xl font-serif font-normal mb-2">100%</div>
               <h2 className="text-2xl sm:text-3xl font-serif font-normal text-deep-sage mb-3">
-                Zero-Break Power &amp; Acoustic Insulation
+                Power Backup &amp; Venue Acoustics
               </h2>
               <p className="text-forest-charcoal/85 text-sm sm:text-base leading-relaxed max-w-xl font-sans">
-                Twin industrial Caterpillar / Cummins DG gensets guarantee zero disruption during sacred muhurtham rituals, paired with acoustically engineered insulation in Royal Banquets.
+                Please contact our team to confirm the available power-backup arrangements and acoustic facilities for your selected venue.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-2.5 text-xs font-semibold uppercase tracking-wider text-deep-sage font-sans">

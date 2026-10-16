@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Cinzel, Playfair_Display, Plus_Jakarta_Sans, Geist } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -161,7 +164,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${cinzel.variable} ${playfair.variable} ${jakarta.variable} scroll-smooth`}>
+    <html lang="en" className={cn("scroll-smooth", cinzel.variable, playfair.variable, jakarta.variable, "font-sans", geist.variable)}>
       <head>
         <script
           type="application/ld+json"

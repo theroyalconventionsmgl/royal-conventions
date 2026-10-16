@@ -1,10 +1,6 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+export { cn } from "cn";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
+/** Format a YYYY-MM-DD date for Indian display, e.g. "Mon, 12 Aug 2025". */
 export function formatDate(dateString: string): string {
   if (!dateString) return "";
   try {
@@ -21,6 +17,7 @@ export function formatDate(dateString: string): string {
   }
 }
 
+/** Format an INR amount with no fractions; renders "—" when unset. */
 export function formatIndianCurrency(amount?: number): string {
   if (amount === undefined || amount === null) return "—";
   return new Intl.NumberFormat("en-IN", {

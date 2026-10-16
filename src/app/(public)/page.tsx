@@ -103,13 +103,13 @@ export default function HomePage() {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-soft-sage/20 border border-soft-sage/40 text-deep-sage text-[11px] font-semibold uppercase tracking-[0.2em]">
               <Sparkles className="w-3 h-3 text-deep-sage" />
-              <span>Campus Infrastructure</span>
+              <span>Comfort & convenience</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-5xl text-deep-sage mt-3 leading-tight font-normal">
-              Thoughtfully built for seamless celebrations
+              The details that help your day flow
             </h2>
             <p className="text-[15px] sm:text-base text-forest-charcoal/80 mt-3.5 leading-relaxed font-sans">
-              Every detail considered — uninterrupted 100% generator backup, dedicated guest parking, attached air-conditioned suites, and industrial prep kitchens.
+              Explore venue amenities and guest services to plan your celebration with confidence. Please confirm specific facilities and arrangements with our team before booking.
             </p>
           </div>
 

@@ -14,17 +14,17 @@ const VALUES = [
   {
     icon: HeartHandshake,
     title: "Hospitality first",
-    desc: "Every guest and host family is received with warmth — from the initial campus walkthrough to the final farewell.",
+    desc: "We aim to make planning feel clear and welcoming, from your first enquiry through your venue visit.",
   },
   {
     icon: ShieldCheck,
-    title: "Unbroken reliability",
-    desc: "100% DG power backup, central climate control, and on-site directors so rituals proceed without interruption.",
+    title: "Thoughtful planning",
+    desc: "Our team can help you understand the facilities and arrangements available for your chosen venue and event date.",
   },
   {
     icon: Award,
     title: "Honest dealing",
-    desc: "Customized packages shared privately after verification. Clear communication with zero unexpected charges.",
+    desc: "Discuss your event requirements and receive a private quotation based on the venue, date, and arrangements agreed with our team.",
   },
 ];
 
@@ -41,7 +41,7 @@ export default function AboutUsPage() {
             A campus built for family celebrations
           </h1>
           <p className="text-[15px] sm:text-lg text-forest-charcoal/80 max-w-2xl mx-auto mt-4 leading-relaxed font-sans">
-            Founded by <strong>Sri N. Nageswara Rao</strong>, The Royal Conventions brings four distinct venues, 8 guest suites, and dedicated hands-on management together on one unified Mangalagiri campus.
+            The Royal Conventions in Mangalagiri brings a collection of event venues together with a team ready to discuss your celebration and venue requirements.
           </p>
         </div>
       </section>

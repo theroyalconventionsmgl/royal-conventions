@@ -16,23 +16,13 @@ export default function HeroSection() {
       {/* 1. Pure black space base (no tinted radial glow) */}
       <div aria-hidden="true" className="absolute inset-0 bg-black" />
 
-      {/* 2. Full-section star field: twinkling by default, static under
-          reduced motion, lighter density on mobile GPUs */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <StarsBackground
-          starDensity={isMobile ? 0.00008 : 0.00013}
-          allStarsTwinkle={!reduceMotion}
-          twinkleProbability={reduceMotion ? 0 : 0.7}
-          className="pointer-events-none"
-        />
-      </div>
-
-      {/* 3. Large transparent 3D globe, oversized and cropped for cinematic scale.
-          Desktop: biased right so the disc sits behind the enquiry card,
-          leaving the headline over open space. Mobile/tablet: centered. */}
+      {/* 2. Large transparent 3D globe, oversized and cropped for cinematic scale.
+          Phone: pushed below centre so the badge, headline and copy sit over
+          open space and the lit limb stays clear of the text.
+          Desktop: biased right so the disc sits behind the enquiry card. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 aspect-square h-[135%] min-h-[620px] w-auto -translate-x-1/2 -translate-y-1/2 sm:h-[150%] lg:left-[64%] lg:top-[54%]"
+        className="pointer-events-none absolute left-1/2 top-[62%] aspect-square h-[118%] min-h-[520px] w-auto -translate-x-1/2 -translate-y-1/2 sm:top-1/2 sm:h-[150%] sm:min-h-[620px] lg:left-[64%] lg:top-[54%]"
       >
         <HeroGlobe
           className="h-full w-full"
@@ -43,34 +33,48 @@ export default function HeroSection() {
             enableZoom: false,
             enablePan: false,
             backgroundColor: null,
-            ambientIntensity: 0.7,
-            pointLightIntensity: 1.0,
+            ambientIntensity: 1.45,
+            pointLightIntensity: 2.4,
           }}
         />
       </div>
 
-      {/* 4. Shooting stars across the whole hero (occasional, elegant;
-          gentler cadence on mobile) */}
+      {/* 3. Contrast scrims for text legibility (directional only, no rings).
+          They dim the base and the planet, never the star field above them.
+          The desktop top stays nearly clear so the limb and the field read. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/55 sm:via-black/25 sm:to-black/25"
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent sm:via-black/20" />
+
+      {/* 4. Persistent star field across the whole hero, above the scrims so it
+          never fades out: twinkling by default, static under reduced motion,
+          lighter density on mobile GPUs */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <StarsBackground
+          starDensity={isMobile ? 0.00032 : 0.00045}
+          allStarsTwinkle={!reduceMotion}
+          twinkleProbability={reduceMotion ? 0 : 0.7}
+          className="pointer-events-none"
+        />
+      </div>
+
+      {/* 5. Occasional shooting stars, separate from the field above
+          (one streak at a time, gentler cadence on mobile) */}
       {!reduceMotion && (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
           <ShootingStars
-            starColor="#F5F0E5"
+            starColor="#FFFBF2"
             trailColor="#7BC9A5"
-            minSpeed={8}
-            maxSpeed={26}
-            minDelay={isMobile ? 3000 : 1800}
-            maxDelay={isMobile ? 8000 : 6000}
-            starWidth={12}
+            minDelay={isMobile ? 4000 : 2600}
+            maxDelay={isMobile ? 10000 : 7500}
             className="pointer-events-none"
           />
         </div>
       )}
 
-      {/* 5. Contrast scrims for text legibility (directional only, no rings) */}
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/45" />
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
-
-      <div className="relative z-10 mx-auto grid min-h-[calc(90svh-7rem)] max-w-7xl items-end gap-12 px-5 pb-10 pt-16 sm:px-8 sm:pb-14 lg:grid-cols-[1.2fr_.8fr] lg:items-center lg:gap-16 lg:pb-20">
+      <div className="relative z-10 mx-auto grid min-h-[calc(90svh-7rem)] max-w-7xl items-end gap-12 px-5 pb-28 pt-12 sm:px-8 sm:pb-14 sm:pt-16 lg:grid-cols-[1.2fr_.8fr] lg:items-center lg:gap-16 lg:pb-20">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -81,7 +85,7 @@ export default function HeroSection() {
             <Sparkles className="h-3.5 w-3.5 text-[#c6d5bd]" />
             Celebrations, thoughtfully hosted
           </div>
-          <h1 className="max-w-3xl font-serif text-[clamp(2.8rem,7vw,6.2rem)] font-normal leading-[.98] tracking-[-.045em] text-balance">
+          <h1 className="max-w-3xl font-serif text-[clamp(2.5rem,6vw_+_1.15rem,6.2rem)] font-normal leading-[1.02] tracking-[-.045em] text-balance sm:leading-[.98]">
             Make room for
             <span className="mt-1 block italic text-[#d9e4d1]">your most meaningful</span>
             celebrations.
@@ -92,18 +96,18 @@ export default function HeroSection() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="#venues"
-              className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full bg-[#f6f2e8] px-7 py-4 text-sm font-semibold text-[#294c3b] transition duration-300 hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="inline-flex w-full min-h-13 items-center justify-center gap-3 rounded-full bg-[#f6f2e8] px-7 py-4 text-sm font-semibold text-[#294c3b] transition duration-300 hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
             >
               Explore the venues <ArrowDownRight className="h-4 w-4" />
             </Link>
             <Link
               href="/check-availability"
-              className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-white/50 bg-white/10 px-7 py-4 text-sm font-semibold text-white backdrop-blur-md transition duration-300 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="inline-flex w-full min-h-13 items-center justify-center gap-3 rounded-full border border-white/50 bg-white/10 px-7 py-4 text-sm font-semibold text-white backdrop-blur-md transition duration-300 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
             >
               <CalendarDays className="h-4 w-4" /> Enquire about a date
             </Link>
           </div>
-          <div className="mt-10 flex items-center gap-2 text-sm text-white/75">
+          <div className="mt-8 flex items-center gap-2 text-sm text-white/75 sm:mt-10">
             <MapPin className="h-4 w-4 text-[#d9e4d1]" />
             Mangalagiri, Andhra Pradesh
           </div>

@@ -14,7 +14,21 @@ interface StarProps {
   radius: number;
   opacity: number;
   twinkleSpeed: number | null;
+  /** RGB triplet string so every star keeps its own tint. */
+  color: string;
+  /** A faint halo on the larger stars only — no glitter, no big blobs. */
+  glow: boolean;
 }
+
+/** Tiny white, cool-white and very subtle blue stars, with a rare warm one. */
+const STAR_COLORS = [
+  "255, 255, 255",
+  "255, 255, 255",
+  "236, 245, 255",
+  "236, 245, 255",
+  "208, 227, 255",
+  "255, 247, 233",
+];
 
 interface StarBackgroundProps {
   starDensity?: number;
@@ -44,15 +58,18 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
       return Array.from({ length: numStars }, () => {
         const shouldTwinkle =
           allStarsTwinkle || Math.random() < twinkleProbability;
+        const radius = Math.random() * 0.45 + 0.45;
         return {
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 0.05 + 0.5,
-          opacity: Math.random() * 0.5 + 0.5,
+          radius,
+          opacity: Math.random() * 0.55 + 0.4,
           twinkleSpeed: shouldTwinkle
             ? minTwinkleSpeed +
               Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
             : null,
+          color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
+          glow: radius > 0.78,
         };
       });
     },
@@ -108,12 +125,22 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
 
     let animationFrameId: number;
 
+    // Reduced motion renders a static field: paint one frame and stop instead
+    // of running a requestAnimationFrame loop that never changes a pixel.
+    const animating = stars.some((star) => star.twinkleSpeed !== null);
+
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach((star) => {
+        if (star.glow) {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.radius * 2.4, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${star.color}, ${star.opacity * 0.16})`;
+          ctx.fill();
+        }
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fillStyle = `rgba(${star.color}, ${star.opacity})`;
         ctx.fill();
 
         if (star.twinkleSpeed !== null) {
@@ -123,7 +150,9 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
         }
       });
 
-      animationFrameId = requestAnimationFrame(render);
+      if (animating) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
     render();

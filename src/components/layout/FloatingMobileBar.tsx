@@ -8,7 +8,7 @@ export default function FloatingMobileBar() {
   return (
     <aside
       aria-label="Quick contact actions"
-      className="md:hidden fixed bottom-4 inset-x-4 z-40"
+      className="md:hidden fixed bottom-4 inset-x-4 z-30"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="bg-warm-cream/95 backdrop-blur-xl border border-natural-sand text-forest-charcoal shadow-xl rounded-2xl p-2 max-w-md mx-auto grid grid-cols-3 gap-2">

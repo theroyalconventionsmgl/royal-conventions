@@ -11,7 +11,6 @@ import {
   X,
   ChevronDown,
   Calendar,
-  MapPin,
   ArrowUpRight,
   MessageSquare,
 } from "lucide-react";
@@ -85,31 +84,32 @@ export default function Header() {
             <Link
               href="/"
               onClick={closeMenus}
-              className="flex items-center gap-3 group shrink-0"
+              className="flex min-w-0 items-center gap-2 sm:gap-3 group"
               aria-label="The Royal Conventions Home"
             >
-              <span className="relative block h-10 w-10 sm:h-[52px] sm:w-[52px] rounded-2xl overflow-hidden ring-1 ring-natural-sand shadow-xs shrink-0 bg-black">
+              <span className="relative block h-9 w-9 sm:h-[52px] sm:w-[52px] rounded-xl sm:rounded-2xl overflow-hidden ring-1 ring-natural-sand shadow-xs shrink-0 bg-black">
                 <Image
                   src={siteConfig.logo}
                   alt="The Royal Conventions emblem"
                   fill
-                  sizes="(max-width: 640px) 40px, 52px"
+                  sizes="(max-width: 640px) 36px, 52px"
                   className="object-contain"
                   priority
                 />
               </span>
-              <div className="flex flex-col">
-                <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-deep-sage leading-none">
+              <div className="flex min-w-0 flex-col">
+                <span className="truncate font-serif text-[11px] min-[380px]:text-[12px] sm:text-xl font-bold tracking-tight text-deep-sage leading-tight">
                   THE ROYAL CONVENTIONS
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-forest-charcoal/70 font-sans mt-1">
+                <span className="hidden text-[10px] uppercase tracking-[0.22em] text-forest-charcoal/70 font-sans mt-1 sm:block">
                   Mangalagiri · AP
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1" aria-label="Main Navigation">
+            {/* Desktop Navigation (xl+: below that the drawer keeps every
+                destination reachable instead of clipping the links) */}
+            <nav className="hidden xl:flex items-center space-x-1" aria-label="Main Navigation">
               {navLinks.map((link) => {
                 const isActive = link.hasDropdown ? hallsActive : pathname === link.href;
 
@@ -134,7 +134,7 @@ export default function Header() {
                         }}
                         aria-expanded={hallsDropdownOpen}
                         aria-haspopup="true"
-                        className={`px-3.5 py-2 text-[14px] font-medium rounded-full transition-colors flex items-center gap-1.5 ${
+                        className={`px-2.5 py-2 text-[13px] font-medium rounded-full transition-colors flex items-center gap-1.5 whitespace-nowrap ${
                           isActive
                             ? "text-deep-sage font-semibold bg-soft-sage/20"
                             : "text-forest-charcoal hover:text-deep-sage hover:bg-soft-sage/15"
@@ -184,7 +184,7 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3.5 py-2 text-[14px] font-medium rounded-full transition-colors ${
+                    className={`px-2.5 py-2 text-[13px] font-medium rounded-full transition-colors whitespace-nowrap ${
                       isActive
                         ? "text-deep-sage font-semibold bg-soft-sage/20"
                         : "text-forest-charcoal hover:text-deep-sage hover:bg-soft-sage/15"
@@ -197,7 +197,7 @@ export default function Header() {
             </nav>
 
             {/* Desktop CTAs */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-3">
               <a
                 href={siteConfig.contact.whatsappLink}
                 target="_blank"
@@ -218,21 +218,23 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* Mobile Actions: Compact Dates CTA + Menu Toggle */}
-            <div className="flex items-center gap-2 lg:hidden">
+            {/* Mobile Actions: compact Dates CTA + Menu Toggle */}
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 xl:hidden">
               <Link
                 href="/check-availability"
                 onClick={closeMenus}
-                className="inline-flex items-center gap-1.5 bg-deep-sage text-pure-white px-3.5 py-2 rounded-full text-[12px] font-semibold min-h-[44px]"
+                aria-label="Check date availability"
+                className="inline-flex items-center gap-1.5 bg-deep-sage text-pure-white px-2.5 sm:px-3.5 py-2 rounded-full text-[11px] sm:text-[12px] font-semibold min-h-[44px] whitespace-nowrap"
               >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Dates</span>
+                <Calendar className="w-3.5 h-3.5 shrink-0" />
+                <span className="hidden sm:inline">Check Dates</span>
+                <span className="sm:hidden">Dates</span>
               </Link>
 
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="w-11 h-11 rounded-full flex items-center justify-center text-deep-sage border border-natural-sand bg-white/70 hover:bg-white transition-colors"
+                className="w-11 h-11 shrink-0 rounded-full flex items-center justify-center text-deep-sage border border-natural-sand bg-white/70 hover:bg-white transition-colors"
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
               >
@@ -251,7 +253,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-0 z-40 bg-warm-cream/98 backdrop-blur-xl lg:hidden flex flex-col pt-20 px-6 pb-8 overflow-y-auto"
+            className="fixed inset-0 top-0 z-[45] bg-warm-cream/98 backdrop-blur-xl xl:hidden flex flex-col pt-20 px-6 pb-[calc(2rem+env(safe-area-inset-bottom))] overflow-y-auto"
           >
             <div className="py-2">
               <p className="text-[11px] uppercase tracking-[0.22em] text-deep-sage/75 font-semibold mb-2">
@@ -273,7 +275,7 @@ export default function Header() {
                             key={child.slug}
                             href={child.slug}
                             onClick={closeMenus}
-                            className="block py-2 text-[15px] font-semibold text-deep-sage hover:translate-x-1 transition-transform"
+                            className="flex min-h-[44px] items-center py-2 text-[15px] font-semibold text-deep-sage hover:translate-x-1 transition-transform"
                           >
                             {child.name}
                           </Link>
@@ -288,7 +290,7 @@ export default function Header() {
                     <Link
                       href={link.href}
                       onClick={closeMenus}
-                      className="block py-2 text-[17px] font-medium text-forest-charcoal hover:text-deep-sage transition-colors"
+                      className="flex min-h-[44px] items-center py-2 text-[17px] font-medium text-forest-charcoal hover:text-deep-sage transition-colors"
                     >
                       {link.label}
                     </Link>

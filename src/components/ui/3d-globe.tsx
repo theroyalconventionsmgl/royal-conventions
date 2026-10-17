@@ -297,13 +297,16 @@ function RotatingGlobe({
 
   return (
     <group ref={groupRef}>
-      {/* Main globe mesh with Earth texture */}
+      {/* Main globe mesh with Earth texture.
+          Natural-terminator lighting: a key light from the camera's upper right
+          keeps continents and coastlines bright, a cool fill lifts the limb so
+          the whole disc stays readable against black space. */}
       <mesh geometry={geometry}>
         <meshStandardMaterial
           map={earthTexture}
           bumpMap={bumpTexture}
           bumpScale={config.bumpScale * 0.05}
-          roughness={0.7}
+          roughness={0.85}
           metalness={0.0}
         />
       </mesh>
@@ -357,7 +360,9 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
 
   return (
     <>
-      {/* Lighting */}
+      {/* Lighting: irradiance is tuned to roughly π so the blue-marble albedo
+          (≈26% average) reads as a clearly visible, naturally lit planet
+          instead of a near-black disc. */}
       <ambientLight intensity={config.ambientIntensity} />
       <directionalLight
         position={[config.radius * 5, config.radius * 2, config.radius * 5]}
@@ -366,8 +371,8 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
       />
       <directionalLight
         position={[-config.radius * 3, config.radius, -config.radius * 2]}
-        intensity={config.pointLightIntensity * 0.3}
-        color="#88ccff"
+        intensity={config.pointLightIntensity * 0.35}
+        color="#9dc9ef"
       />
 
       {/* Rotating Globe with Markers */}
@@ -415,8 +420,8 @@ const defaultConfig: Required<Globe3DConfig> = {
   markerSize: 0.06,
   showWireframe: false,
   wireframeColor: "#4a9eff",
-  ambientIntensity: 0.6,
-  pointLightIntensity: 1.5,
+  ambientIntensity: 1.0,
+  pointLightIntensity: 2.2,
   backgroundColor: null,
 };
 
